@@ -1,0 +1,461 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import unicodedata
+from datetime import datetime, timezone
+from pathlib import Path
+
+import yaml
+from jsonschema import validators
+
+
+ROOT = Path(__file__).resolve().parent.parent
+KNOWLEDGE_DIR = ROOT / "knowledge"
+SCHEMAS_DIR = KNOWLEDGE_DIR / "schemas"
+DATASETS_DIR = KNOWLEDGE_DIR / "datasets"
+CONTRACTS_DIR = KNOWLEDGE_DIR / "contracts"
+
+DEFAULT_VIEW_CONTRACTS_FILE = CONTRACTS_DIR / "view-contracts.yml"
+DEFAULT_LEGACY_SECTOR_MODEL_FILE = CONTRACTS_DIR / "sector-hub-legacy-model.yml"
+VIEW_CONTRACT_SCHEMA = SCHEMAS_DIR / "view_contract.schema.json"
+DEFAULT_ONTOLOGY_FILE = DATASETS_DIR / "taxonomy.ontology.yml"
+ONTOLOGY_SCHEMA = SCHEMAS_DIR / "taxonomy_ontology.schema.json"
+
+DEFAULT_DOMAINS_FILE = DATASETS_DIR / "taxonomy.domains.yml"
+DEFAULT_FIELDS_FILE = DATASETS_DIR / "taxonomy.fields.yml"
+DEFAULT_LABELS_FILE = DATASETS_DIR / "taxonomy.labels.yml"
+DEFAULT_SECTORS_ES_FILE = ROOT / "docs" / "sectors" / "sector-hub.md"
+DEFAULT_SECTORS_EN_FILE = ROOT / "docs" / "sectors" / "sector-hub.en.md"
+
+
+def _load_yaml(path: Path):
+    return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+
+def _load_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _validate_schema(data, schema, context: str):
+    validator_cls = validators.validator_for(schema)
+    validator = validator_cls(schema)
+    errors = sorted(validator.iter_errors(data), key=lambda err: list(err.path))
+    return [f"{context}: {'/'.join(str(p) for p in err.path) or '<root>'}: {err.message}" for err in errors]
+
+
+def _norm(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    return normalized.casefold()
+
+
+def _check_view_contracts(contracts: dict, ontology: dict, taxonomy: dict):
+    errors = []
+    checks = []
+
+    ontology_domains = set(ontology["entities"]["domains"])
+    ontology_sectors = set(ontology["entities"]["sectors"])
+    taxonomy_domains = set(taxonomy["domains"])
+    taxonomy_labels = set(taxonomy["labels"])
+    sector_domain_map = {}
+    for relation in ontology.get("relations", []):
+        if (
+            relation.get("source_type") == "sector"
+            and relation.get("relation_type") == "governed_by"
+            and relation.get("target_type") == "domain"
+        ):
+            sector = relation.get("source")
+            domain = relation.get("target")
+            if isinstance(sector, str) and isinstance(domain, str):
+                sector_domain_map.setdefault(sector, set()).add(domain)
+
+    for view in contracts["views"]:
+        view_id = view["id"]
+        view_path = ROOT / view["path"]
+        view_result = {
+            "id": view_id,
+            "path": view["path"],
+            "exists": view_path.exists(),
+            "sections_ok": True,
+            "links_ok": True,
+            "narrative_ok": True,
+            "taxonomy_ok": True,
+        }
+
+        if not view_path.exists():
+            errors.append(f"view '{view_id}': file not found: {view['path']}")
+            view_result["sections_ok"] = False
+            view_result["links_ok"] = False
+            view_result["narrative_ok"] = False
+            view_result["taxonomy_ok"] = False
+            checks.append(view_result)
+            continue
+
+        content = view_path.read_text(encoding="utf-8")
+        normalized_content = _norm(content)
+
+        for required_section in view["required_sections"]:
+            if _norm(required_section) not in normalized_content:
+                errors.append(
+                    f"view '{view_id}': required section not found: '{required_section}' in {view['path']}"
+                )
+                view_result["sections_ok"] = False
+
+        for required_link in view["required_links"]:
+            if required_link not in content:
+                errors.append(f"view '{view_id}': required link not found: '{required_link}' in {view['path']}")
+                view_result["links_ok"] = False
+
+        narrative_contract = view.get("narrative_contract")
+        if isinstance(narrative_contract, dict):
+            min_occurrences = int(narrative_contract.get("min_occurrences", 1))
+            for marker in narrative_contract.get("markers", []):
+                occurrences = normalized_content.count(_norm(marker))
+                if occurrences < min_occurrences:
+                    errors.append(
+                        f"view '{view_id}': narrative marker '{marker}' appears {occurrences} times; "
+                        f"expected at least {min_occurrences}"
+                    )
+                    view_result["narrative_ok"] = False
+
+        domain = view["taxonomy_bindings"]["domain"]
+        sector = view["taxonomy_bindings"]["sector"]
+        if domain not in ontology_domains:
+            errors.append(f"view '{view_id}': taxonomy domain '{domain}' not present in ontology")
+            view_result["taxonomy_ok"] = False
+        if domain not in taxonomy_domains:
+            errors.append(f"view '{view_id}': taxonomy domain '{domain}' not present in taxonomy.domains.yml")
+            view_result["taxonomy_ok"] = False
+        if sector not in ontology_sectors:
+            errors.append(f"view '{view_id}': taxonomy sector '{sector}' not present in ontology")
+            view_result["taxonomy_ok"] = False
+        allowed_domains = sorted(sector_domain_map.get(sector, set()))
+        if not allowed_domains:
+            errors.append(
+                f"view '{view_id}': sector '{sector}' has no governed_by relation in ontology; cannot validate domain binding"
+            )
+            view_result["taxonomy_ok"] = False
+        elif domain not in allowed_domains:
+            errors.append(
+                f"view '{view_id}': invalid taxonomy binding domain='{domain}' for sector='{sector}' "
+                f"(allowed: {', '.join(allowed_domains)})"
+            )
+            view_result["taxonomy_ok"] = False
+
+        for label in view.get("required_labels", []):
+            if label not in taxonomy_labels:
+                errors.append(f"view '{view_id}': required label '{label}' not present in taxonomy.labels.yml")
+                view_result["taxonomy_ok"] = False
+
+        checks.append(view_result)
+
+    return errors, checks
+
+
+def _check_ontology_alignment(ontology: dict, taxonomy: dict):
+    errors = []
+
+    ontology_domains = set(ontology["entities"]["domains"])
+    ontology_labels = set(ontology["entities"]["labels"])
+    ontology_fields = set(ontology["entities"]["fields"])
+
+    taxonomy_domains = set(taxonomy["domains"])
+    taxonomy_labels = set(taxonomy["labels"])
+    taxonomy_fields = set(taxonomy["fields"])
+
+    missing_domains = sorted(ontology_domains - taxonomy_domains)
+    missing_labels = sorted(ontology_labels - taxonomy_labels)
+    missing_fields = sorted(ontology_fields - taxonomy_fields)
+
+    if missing_domains:
+        errors.append(f"ontology domains missing from taxonomy.domains.yml: {', '.join(missing_domains)}")
+    if missing_labels:
+        errors.append(f"ontology labels missing from taxonomy.labels.yml: {', '.join(missing_labels)}")
+    if missing_fields:
+        errors.append(f"ontology fields missing from taxonomy.fields.yml: {', '.join(missing_fields)}")
+
+    return errors
+
+
+def _check_legacy_sector_model(legacy_model: dict, ontology: dict):
+    errors = []
+
+    if not isinstance(legacy_model, dict):
+        return ["legacy_sector_model: file content must be a YAML object"]
+
+    for key in ("metadata", "model", "sectors"):
+        if key not in legacy_model:
+            errors.append(f"legacy_sector_model: missing required key '{key}'")
+
+    model = legacy_model.get("model", {})
+    if not isinstance(model, dict):
+        errors.append("legacy_sector_model: 'model' must be an object")
+    else:
+        required_markers = {"audiencia", "narrativa", "oferta_inicial", "valor"}
+        configured = set(model.get("legacy_fields", []))
+        missing = sorted(required_markers - configured)
+        if missing:
+            errors.append(
+                "legacy_sector_model: model.legacy_fields missing markers: " + ", ".join(missing)
+            )
+
+    sectors = legacy_model.get("sectors", [])
+    if not isinstance(sectors, list) or not sectors:
+        return errors + ["legacy_sector_model: 'sectors' must be a non-empty list"]
+
+    ontology_domains = set(ontology["entities"]["domains"])
+    ontology_sectors = set(ontology["entities"]["sectors"])
+    sector_domain_map = {}
+    for relation in ontology.get("relations", []):
+        if (
+            relation.get("source_type") == "sector"
+            and relation.get("relation_type") == "governed_by"
+            and relation.get("target_type") == "domain"
+        ):
+            sector = relation.get("source")
+            domain = relation.get("target")
+            if isinstance(sector, str) and isinstance(domain, str):
+                sector_domain_map.setdefault(sector, set()).add(domain)
+
+    seen_ids = set()
+    for item in sectors:
+        if not isinstance(item, dict):
+            errors.append("legacy_sector_model: each sector entry must be an object")
+            continue
+
+        sector_id = item.get("id")
+        if not isinstance(sector_id, str) or not sector_id.strip():
+            errors.append("legacy_sector_model: sector entry missing non-empty 'id'")
+            continue
+        if sector_id in seen_ids:
+            errors.append(f"legacy_sector_model: duplicated sector id '{sector_id}'")
+        seen_ids.add(sector_id)
+
+        bindings = item.get("taxonomy_bindings", {})
+        if not isinstance(bindings, dict):
+            errors.append(f"legacy_sector_model[{sector_id}]: taxonomy_bindings must be an object")
+            continue
+        domain = bindings.get("domain")
+        sector = bindings.get("sector")
+        if domain not in ontology_domains:
+            errors.append(f"legacy_sector_model[{sector_id}]: unknown domain '{domain}'")
+        if sector not in ontology_sectors:
+            errors.append(f"legacy_sector_model[{sector_id}]: unknown sector '{sector}'")
+        allowed_domains = sorted(sector_domain_map.get(sector, set()))
+        if not allowed_domains:
+            errors.append(
+                f"legacy_sector_model[{sector_id}]: sector '{sector}' has no governed_by relation in ontology"
+            )
+        elif domain not in allowed_domains:
+            errors.append(
+                f"legacy_sector_model[{sector_id}]: invalid domain-sector pair "
+                f"domain='{domain}', sector='{sector}' (allowed domains: {', '.join(allowed_domains)})"
+            )
+
+        legacy = item.get("legacy", {})
+        if not isinstance(legacy, dict):
+            errors.append(f"legacy_sector_model[{sector_id}]: 'legacy' must be an object")
+            continue
+
+        es = legacy.get("es", {})
+        en = legacy.get("en", {})
+        required_es = ("audiencia", "narrativa", "oferta_inicial", "valor")
+        required_en = ("audience", "narrative", "starter_offer", "value")
+
+        if not isinstance(es, dict):
+            errors.append(f"legacy_sector_model[{sector_id}]: legacy.es must be an object")
+        else:
+            for field in required_es:
+                value = es.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    errors.append(
+                        f"legacy_sector_model[{sector_id}]: legacy.es.{field} must be a non-empty string"
+                    )
+
+        if not isinstance(en, dict):
+            errors.append(f"legacy_sector_model[{sector_id}]: legacy.en must be an object")
+        else:
+            for field in required_en:
+                value = en.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    errors.append(
+                        f"legacy_sector_model[{sector_id}]: legacy.en.{field} must be a non-empty string"
+                    )
+
+    return errors
+
+
+def _flatten_labels(labels_dict: dict):
+    values = []
+    for item in labels_dict.values():
+        if isinstance(item, list):
+            values.extend(item)
+    return values
+
+
+def _resolve_path(value: str) -> Path:
+    candidate = Path(value)
+    if candidate.is_absolute():
+        return candidate
+    return ROOT / candidate
+
+
+def _display_path(path: Path) -> str:
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Validate UAT view contracts and ontology alignment for Atlantyqa knowledge base."
+    )
+    parser.add_argument(
+        "--contracts",
+        default=str(DEFAULT_VIEW_CONTRACTS_FILE.relative_to(ROOT)),
+        help="Path to view contracts YAML (default: knowledge/contracts/view-contracts.yml).",
+    )
+    parser.add_argument(
+        "--legacy-sector-model",
+        default=str(DEFAULT_LEGACY_SECTOR_MODEL_FILE.relative_to(ROOT)),
+        help="Path to legacy sector model YAML.",
+    )
+    parser.add_argument(
+        "--ontology",
+        default=str(DEFAULT_ONTOLOGY_FILE.relative_to(ROOT)),
+        help="Path to ontology YAML (default: knowledge/datasets/taxonomy.ontology.yml).",
+    )
+    parser.add_argument(
+        "--domains-file",
+        default=str(DEFAULT_DOMAINS_FILE.relative_to(ROOT)),
+        help="Path to taxonomy domains YAML.",
+    )
+    parser.add_argument(
+        "--fields-file",
+        default=str(DEFAULT_FIELDS_FILE.relative_to(ROOT)),
+        help="Path to taxonomy fields YAML.",
+    )
+    parser.add_argument(
+        "--labels-file",
+        default=str(DEFAULT_LABELS_FILE.relative_to(ROOT)),
+        help="Path to taxonomy labels YAML.",
+    )
+    parser.add_argument(
+        "--sectors",
+        default=str(DEFAULT_SECTORS_ES_FILE.relative_to(ROOT)),
+        help="Compatibility flag for ES sector hub path.",
+    )
+    parser.add_argument(
+        "--sectors-en",
+        default=str(DEFAULT_SECTORS_EN_FILE.relative_to(ROOT)),
+        help="Compatibility flag for EN sector hub path.",
+    )
+    parser.add_argument(
+        "--output",
+        default="outputs/ci-evidence/knowledge-uat-report.json",
+        help="Path to write JSON UAT report.",
+    )
+    args = parser.parse_args()
+
+    contracts_file = _resolve_path(args.contracts)
+    legacy_sector_model_file = _resolve_path(args.legacy_sector_model)
+    ontology_file = _resolve_path(args.ontology)
+    domains_file = _resolve_path(args.domains_file)
+    fields_file = _resolve_path(args.fields_file)
+    labels_file = _resolve_path(args.labels_file)
+    sectors_file = _resolve_path(args.sectors)
+    sectors_en_file = _resolve_path(args.sectors_en)
+
+    view_contracts = _load_yaml(contracts_file)
+    ontology = _load_yaml(ontology_file)
+    taxonomy_domains = _load_yaml(domains_file)
+    taxonomy_fields = _load_yaml(fields_file)
+    taxonomy_labels = _load_yaml(labels_file)
+
+    taxonomy = {
+        "domains": list((taxonomy_domains or {}).get("domains", {}).keys()),
+        "fields": list((taxonomy_fields or {}).get("project_v2_fields", {}).get("single_select", []))
+        + list((taxonomy_fields or {}).get("project_v2_fields", {}).get("number", [])),
+        "labels": _flatten_labels((taxonomy_labels or {}).get("labels", {})),
+    }
+
+    report = {
+        "report_version": "1.0",
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "contracts_file": _display_path(contracts_file),
+        "legacy_sector_model_file": _display_path(legacy_sector_model_file),
+        "ontology_file": _display_path(ontology_file),
+        "sectors_file": _display_path(sectors_file),
+        "sectors_en_file": _display_path(sectors_en_file),
+        "checks": [],
+        "errors": [],
+    }
+
+    if not sectors_file.exists():
+        report["errors"].append(f"sectors_file: file not found: {_display_path(sectors_file)}")
+    if not sectors_en_file.exists():
+        report["errors"].append(f"sectors_en_file: file not found: {_display_path(sectors_en_file)}")
+
+    legacy_sector_model = None
+    try:
+        legacy_sector_model = _load_yaml(legacy_sector_model_file)
+    except FileNotFoundError:
+        report["errors"].append(
+            f"legacy_sector_model: file not found: {_display_path(legacy_sector_model_file)}"
+        )
+    except Exception as exc:
+        report["errors"].append(f"legacy_sector_model: failed to load YAML: {exc}")
+
+    view_schema_errors = _validate_schema(view_contracts, _load_json(VIEW_CONTRACT_SCHEMA), "view_contracts")
+    ontology_schema_errors = _validate_schema(ontology, _load_json(ONTOLOGY_SCHEMA), "taxonomy_ontology")
+    report["errors"].extend(view_schema_errors)
+    report["errors"].extend(ontology_schema_errors)
+
+    view_checks = []
+    if view_schema_errors or ontology_schema_errors:
+        if view_schema_errors:
+            report["errors"].append(
+                "[knowledge-uat] semantic checks skipped: view contracts schema validation failed"
+            )
+        if ontology_schema_errors:
+            report["errors"].append(
+                "[knowledge-uat] semantic checks skipped: ontology schema validation failed"
+            )
+    else:
+        view_errors, view_checks = _check_view_contracts(view_contracts, ontology, taxonomy)
+        report["errors"].extend(view_errors)
+        report["checks"].extend(view_checks)
+        report["errors"].extend(_check_ontology_alignment(ontology, taxonomy))
+        if legacy_sector_model is not None:
+            report["errors"].extend(_check_legacy_sector_model(legacy_sector_model, ontology))
+
+    views = view_contracts.get("views", []) if isinstance(view_contracts, dict) else []
+    report["summary"] = {
+        "views_total": len(views) if isinstance(views, list) else 0,
+        "views_valid": sum(
+            1
+            for item in view_checks
+            if item["exists"] and item["sections_ok"] and item["links_ok"] and item["narrative_ok"] and item["taxonomy_ok"]
+        ),
+        "legacy_sectors_total": len(legacy_sector_model.get("sectors", []))
+        if isinstance(legacy_sector_model, dict) and isinstance(legacy_sector_model.get("sectors"), list)
+        else 0,
+        "errors_total": len(report["errors"]),
+    }
+
+    output_path = _resolve_path(args.output)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(report, indent=2, ensure_ascii=True), encoding="utf-8")
+
+    if report["errors"]:
+        for error in report["errors"]:
+            print(f"[knowledge-uat] ERROR: {error}")
+        print(f"[knowledge-uat] FAILED. Report: {output_path}")
+        return 1
+
+    print(f"[knowledge-uat] OK. Report: {output_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,49 @@
+labels:
+  domains:
+    - domain-docs
+    - domain-ui
+    - domain-core
+    - domain-gitops
+    - domain-ops
+  skills:
+    - skill-python
+    - skill-frontend
+    - skill-devsecops
+    - skill-docker
+    - skill-docs
+    - skill-data-ai
+  compute:
+    - compute-low
+    - compute-medium
+    - compute-heavy
+  levels:
+    - level-beta
+    - level-stable
+    - level-critical
+  roles:
+    - role-ai-ops
+    - role-gitops-engineer
+    - role-docs-engineer
+    - role-ux-local
+  gamification:
+    - "good first issue"
+    - learning-task
+    - ci-gitops
+    - automation
+    - ci-boott
+  stakeholders:
+    - intake-stakeholder
+    - sla-24h
+    - sla-72h
+    - sla-120h
+    - audience-universidad
+    - audience-municipio
+    - audience-banca
+    - audience-salud
+    - audience-pyme
+    - audience-autonomo
+    - audience-asesoria
+    - audience-administracion
+    - audience-cooperativa
+    - audience-utilities
+    - audience-otro

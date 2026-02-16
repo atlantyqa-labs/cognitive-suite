@@ -1,0 +1,101 @@
+# Local data
+/data/*
+!/data/input/
+
+# Output files
+/outputs/*
+exports/out/
+dashboard/public/
+
+/qdrant_storage/
+/*.zip
+*.env
+*.actrc
+
+# Entornos virtuales y metadatos de dependencias Python
+.venv/
+venv/
+env/
+ENV/
+.python-version
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# Caché y artefactos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+
+# Artefactos de construcción y empaquetado
+bin/
+
+dist/
+build/
+site/
+ui/
+*.whl
+*.iso
+*.deb
+*.snap
+*.AppImage
+AppDir/
+snap/
+flatpak/
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+*.class
+*.jar
+*.war
+
+# Archivos temporales, logs y runtime local creado por bootstrap.sh
+logs/
+tmp/
+temp/
+.cache/
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+local_runtime/
+audit/
+labs/ledger.json
+labs/ledger.csv
+labs/evidence/
+labs/submissions/
+labs/*.local
+
+# Web artifacts y caché frontend
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+.parcel-cache/
+.next/
+.nuxt/
+.svelte-kit/
+*.tsbuildinfo
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Prevent oversized audio artifacts in inputs snapshots
+inputs/**/*.m4a

@@ -1,0 +1,228 @@
+site_name: Atlantyqa Cognitive Suite
+site_description: Digital Sovereignty · Cognitive Governance · Local-First AI
+site_url: https://atlantyqa-labs.github.io/cognitive-suite/
+# repo_url: https://github.com/atlantyqa-labs/cognitive-suite
+# repo_name: atlantyqa-labs/cognitive-suite
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    scheme: light
+    primary: custom
+    accent: custom
+  language: es
+  logo: assets/logo.svg
+  favicon: assets/favicon.png
+
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+  font: false
+
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/custom.css
+  - stylesheets/mobile.css
+
+extra_javascript:
+  - javascripts/custom.js
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+  - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social_image: assets/social-card.jpg
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/atlantyqa-labs/cognitive-suite
+      name: Atlantyqa on GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/company/atlantyqa
+      name: Atlantyqa on LinkedIn
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/atlantyqa
+      name: Atlantyqa on Twitter
+
+copyright: |
+  <span class="atlantyqa-copyright-wrapper">
+    &copy; 2026 Atlantyqa Labs. |
+    <a href="legal/privacy/">Política de Privacidad</a> ·
+    <a href="legal/terms/">Términos de Servicio</a>
+  </span>
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: es
+          default: true
+          name: Español
+          nav:
+            - index.md
+            - Soluciones por sector:
+                - Hub sectorial: sectors/sector-hub.md
+                - Universidades: sectors/universities.md
+                - Municipios ITI: sectors/municipalities-iti.md
+                - Banca regulada: sectors/regulated-banking.md
+                - Salud y hospitales: sectors/healthcare.md
+                - PYMES multisector: sectors/smbs.md
+                - Autonomos y microequipos: sectors/freelancers.md
+                - Asesorias legales, fiscales y contables: sectors/advisory-firms.md
+                - Administraciones publicas y entes: sectors/public-administration.md
+                - Cooperativas y economia social: sectors/cooperatives.md
+                - Otros sectores regulados: sectors/other-regulated.md
+            - Confianza y gobernanza:
+                - Visión general: trust/overview.md
+                - Seguridad y compliance: trust/security-compliance.md
+                - Modelos de despliegue: trust/deployment-models.md
+            - Legal:
+                - Política de Privacidad: legal/privacy.md
+                - Términos de Servicio: legal/terms.md
+            - Comienza aquí:
+                - Inicio rápido: portal/quickstart.md
+                - Ruta de aprendizaje: portal/learning-path.md
+                - Identidad y ecosistema: portal/identity-ecosystem.md
+                - Métricas: portal/metrics.md
+                - Labs de desafío de talento: portal/talent-challenge-labs.md
+                - "Lab 01: Inmersión profunda": portal/lab-01-deep-dive.md
+                - "Lab 02: GitOps Steward": portal/lab-02-gitops-steward.md
+                - "Lab 03: Bootstrap Dashboard": portal/lab-03-bootstrap-dashboard.md
+                - Contribuir: portal/contributing.md
+            - Guías:
+                - Instalación: installation.md
+                - Plan de adopción: adoption-plan.md
+                - Plan de ejecución: execution-plan.md
+                - Plan de ejecución early adopters: execution-plan-early-adopters.md
+                - Estrategia de cómputo: compute-strategy.md
+                - Visión de usuario: user-vision.md
+                - Open Notebook: open_notebook_integration.md
+            - Interfaz de Usuario:
+                - Visión General: user-interface/overview.md
+                - Dashboard Operativo: user-interface/dashboard.md
+                - Flujos de Ingesta: user-interface/flows.md
+                - Panel GitOps: user-interface/gitops.md
+                - Terminal CLI: user-interface/cli.md
+                - Vista local (UI): user-view/local-ui.md
+            - Operaciones internas:
+                - Estrategia de cómputo: internal/compute-strategy.md
+                - Plan de ejecución: internal/execution-plan.md
+                - Controles de cumplimiento: internal/compliance-controls.md
+                - Hoja de ruta de cumplimiento: internal/compliance-roadmap.md
+                - Políticas: internal/policies.md
+                - DPIA: internal/dpia.md
+                - RoPA: internal/ropa.md
+                - BCP-DR: internal/bcp-dr.md
+                - Respuesta a incidentes: internal/incident-response-playbook.md
+                - Revisión de accesos: internal/access-review.md
+                - Registro de evidencias: internal/control-evidence-log.md
+                - Ejemplos:
+                    - Ejemplo DPIA: internal/examples/dpia-example.md
+                    - Ejemplo RoPA: internal/examples/ropa-example.md
+                    - Ejemplo BCP-DR: internal/examples/bcp-dr-example.md
+                    - Ejemplo de respuesta a incidentes: internal/examples/incident-response-example.md
+                    - Ejemplo de revisión de accesos: internal/examples/access-review-example.md
+                    - Ejemplo de registro de evidencias: internal/examples/control-evidence-log-example.md
+                    - Ejemplo de prueba de restauración: internal/examples/restore-test-report.md
+                    - Nota de endurecimiento: internal/examples/hardening-note.md
+        - locale: en
+          name: English
+          nav:
+            - index.en.md
+            - Sector Solutions:
+                - Sector Hub: sectors/sector-hub.en.md
+                - Universities: sectors/universities.en.md
+                - ITI Municipalities: sectors/municipalities-iti.en.md
+                - Regulated Banking: sectors/regulated-banking.en.md
+                - Healthcare & Hospitals: sectors/healthcare.en.md
+                - SMBs Across Sectors: sectors/smbs.en.md
+                - Freelancers & Micro-teams: sectors/freelancers.en.md
+                - Legal, Tax & Accounting Firms: sectors/advisory-firms.en.md
+                - Public Administrations & Agencies: sectors/public-administration.en.md
+                - Cooperatives & Social Economy: sectors/cooperatives.en.md
+                - Other Regulated Sectors: sectors/other-regulated.en.md
+            - Trust & Governance:
+                - Overview: trust/overview.en.md
+                - Security & Compliance: trust/security-compliance.en.md
+                - Deployment Models: trust/deployment-models.en.md
+            - Legal:
+                - Privacy Policy: legal/privacy.en.md
+                - Terms of Service: legal/terms.en.md
+            - Start Here:
+                - Quickstart: portal/quickstart.en.md
+                - Learning Path: portal/learning-path.en.md
+                - Identity and Ecosystem: portal/identity-ecosystem.en.md
+                - Metrics: portal/metrics.en.md
+                - Talent Challenge Labs: portal/talent-challenge-labs.en.md
+                - "Lab 01: Deep Dive": portal/lab-01-deep-dive.en.md
+                - "Lab 02: GitOps Steward": portal/lab-02-gitops-steward.en.md
+                - "Lab 03: Bootstrap Dashboard": portal/lab-03-bootstrap-dashboard.en.md
+                - Contributing: portal/contributing.en.md
+            - Guides:
+                - Installation: installation.en.md
+                - Adoption Plan: adoption-plan.en.md
+                - Execution Plan: execution-plan.en.md
+                - Execution Plan (Early Adopters): execution-plan-early-adopters.en.md
+                - Compute Strategy: compute-strategy.en.md
+                - User Vision: user-vision.en.md
+                - Open Notebook: open_notebook_integration.en.md
+            - User Interface:
+                - Overview: user-interface/overview.en.md
+                - Operations Dashboard: user-interface/dashboard.en.md
+                - Ingestion Flows: user-interface/flows.en.md
+                - GitOps Panel: user-interface/gitops.en.md
+                - CLI Terminal: user-interface/cli.en.md
+                - Local UI View: user-view/local-ui.en.md
+            - Internal (Ops):
+                - Compute Strategy: internal/compute-strategy.en.md
+                - Execution Plan: internal/execution-plan.en.md
+                - Compliance Controls: internal/compliance-controls.en.md
+                - Compliance Roadmap: internal/compliance-roadmap.en.md
+                - Policies: internal/policies.en.md
+                - DPIA: internal/dpia.en.md
+                - RoPA: internal/ropa.en.md
+                - BCP-DR: internal/bcp-dr.en.md
+                - Incident Response: internal/incident-response-playbook.en.md
+                - Access Review: internal/access-review.en.md
+                - Evidence Log: internal/control-evidence-log.en.md
+                - Examples:
+                    - DPIA Example: internal/examples/dpia-example.en.md
+                    - RoPA Example: internal/examples/ropa-example.en.md
+                    - BCP-DR Example: internal/examples/bcp-dr-example.en.md
+                    - Incident Response Example: internal/examples/incident-response-example.en.md
+                    - Access Review Example: internal/examples/access-review-example.en.md
+                    - Evidence Log Example: internal/examples/control-evidence-log-example.en.md
+                    - Restore Test Example: internal/examples/restore-test-report.en.md
+                    - Hardening Note: internal/examples/hardening-note.en.md

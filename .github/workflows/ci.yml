@@ -1,0 +1,122 @@
+name: CI Router
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      docs:   ${{ steps.filter.outputs.docs }}
+      fe:     ${{ steps.filter.outputs.fe }}
+      py:     ${{ steps.filter.outputs.py }}
+      docker: ${{ steps.filter.outputs.docker }}
+      gitops: ${{ steps.filter.outputs.gitops }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            docs:
+              - 'docs/**'
+              - 'mkdocs.yml'
+              - 'mkdocs.public.yml'
+              - 'requirements-docs.txt'
+              - 'requirements-ci.txt'
+              - 'knowledge/contracts/**'
+              - 'knowledge/datasets/**'
+              - 'knowledge/schemas/**'
+              - 'scripts/validate-knowledge.py'
+              - 'scripts/validate-stakeholder-intake.py'
+              - 'scripts/validate-knowledge-uat.py'
+              - 'PATCH_MKDOCS_NAV_APPEND.md'
+
+            fe:
+              - 'frontend/**'
+
+            py:
+              - 'cogctl.py'
+              - 'ingestor/**'
+              - 'pipeline/**'
+              - 'wrappers/**'
+              - 'vectorstore/**'
+              - 'schemas/**'
+              - 'knowledge/**'
+              - 'datasets/**'
+              - 'scripts/**'
+              - 'ops/**'
+              - 'requirements.txt'
+              - 'requirements-ci.txt'
+              - 'TESTING_GUIDE.md'
+              - 'test-bootstrap.sh'
+
+            docker:
+              - 'docker-compose.yml'
+              - 'docker-compose.prod.yml'
+              - 'docker-compose.playground.yml'
+              - '.dockerignore'
+              - 'frontend/Dockerfile'
+              - '**/Dockerfile'
+              - 'ingestor/**'
+              - 'pipeline/**'
+              - 'schemas/**'
+              - 'test-bootstrap.sh'
+
+            gitops:
+              - 'gitops/**'
+              - '**/*.yaml'
+              - '**/*.yml'
+
+  docs:
+    needs: changes
+    if: needs.changes.outputs.docs == 'true'
+    uses: ./.github/workflows/ci-docs.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+
+  frontend:
+    needs: changes
+    if: needs.changes.outputs.fe == 'true'
+    uses: ./.github/workflows/ci-frontend.yml
+
+  python:
+    needs: changes
+    if: needs.changes.outputs.py == 'true'
+    uses: ./.github/workflows/ci-python.yml
+
+  docker:
+    permissions:
+      packages: write
+      contents: write
+    needs: changes
+    if: needs.changes.outputs.docker == 'true' && !contains(github.event.pull_request.labels.*.name, 'compute-heavy')
+    uses: ./.github/workflows/ci-docker.yml
+
+  gitops:
+    needs: changes
+    if: needs.changes.outputs.gitops == 'true'
+    uses: ./.github/workflows/ci-gitops.yml
+
+  security:
+    needs: changes
+    uses: ./.github/workflows/ci-security.yml
+    permissions:
+      contents: read
+      security-events: write

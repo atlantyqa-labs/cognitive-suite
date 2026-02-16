@@ -1,0 +1,16 @@
+# CODEOWNERS – control de revisiones automáticas
+# Definición de responsables por carpeta o patrón. Estos usuarios deberán
+# aprobar los cambios antes de que se puedan fusionar en la rama protegida.
+
+# Carpeta general del backend y pipeline
+/ingestor/ @atlantyqa-labs/devsecops
+/pipeline/ @atlantyqa-labs/devsecops
+
+# Carpeta de documentación legal y CRA
+/docs/ @atlantyqa-labs/legal
+
+# Configuraciones de IA y ética
+/wrappers/ @atlantyqa-labs/ai
+
+# Archivos de compliance y auditoría
+/schemas/ @atlantyqa-labs/audit

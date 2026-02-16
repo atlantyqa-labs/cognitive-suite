@@ -1,0 +1,10 @@
+d0f4bc7faca468376e3db9b5e57afcdc2192134c9ac82a9511f32767b56853a4  docs/assets/fonts/inter-300.ttf
+1b08e7fc267a5c7e1d614100f604b83e7e8a0be241f0f288faa2b3ac93a683ba  docs/assets/fonts/inter-400.ttf
+8c883f63b2c4157d997319f2c8bc6995ed4357ef371940d31ca159004a4aae63  docs/assets/fonts/inter-500.ttf
+e7a1aaf7eda9f2fad4131725fa556265ec75ca7b2d756260173a040363e8d4f7  docs/assets/fonts/inter-600.ttf
+b37284b5701b6b168dfc770aa1a4ac492106422fd3ba76bc7641e37434e8019c  docs/assets/fonts/inter-700.ttf
+329949c551e04130eeb43580e149a2d548090e71359d05d925329ae123fac5c9  docs/assets/fonts/roboto-mono-400.ttf
+5231999c0ede4f61cc74b39415c35edcaf48d4d29d2e85ed1547ddbc8e531ab6  docs/assets/fonts/roboto-mono-700.ttf
+3e699ead1876244fa392243054ddefe7cf631b488438828a8a100731a22ab995  docs/assets/fonts/space-grotesk-500.ttf
+6c0346b8d297ebdc225832833e03e884a26ad99d265ecd3924d46e1ba285ea87  docs/assets/fonts/space-grotesk-600.ttf
+3e756954468ff1cb302dae0414262e72f76a67d87bef3fa1f3226cd0fb9b2d85  docs/assets/fonts/space-grotesk-700.ttf
