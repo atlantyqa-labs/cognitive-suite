@@ -66,22 +66,85 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - name: Require 2 approvals
+      - uses: actions/checkout@v4
+
+      - name: Enforce main-entry review contract
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO_SLUG: ${{ github.repository }}
-          REQUIRED_APPROVALS: "2"
+          CONTRACT_FILE: .github/contracts/main-entry-review-gate.json
         run: |
           set -euo pipefail
           if [ -z "${GITHUB_TOKEN:-}" ]; then
             echo "GITHUB_TOKEN not available" >&2
             exit 1
           fi
-          approvals=$(curl -sS -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
+
+          if [ ! -f "${CONTRACT_FILE}" ]; then
+            echo "Missing review-gate contract: ${CONTRACT_FILE}" >&2
+            exit 1
+          fi
+
+          required_approvals=$(jq -er '.required_approvals' "${CONTRACT_FILE}")
+          required_human_approvals=$(jq -er '.required_human_approvals' "${CONTRACT_FILE}")
+          required_bot_approvals=$(jq -er '.required_bot_approvals' "${CONTRACT_FILE}")
+          validated_bot_reviewers=$(jq -ce '.validated_bot_reviewers' "${CONTRACT_FILE}")
+
+          if ! jq -e 'type=="array" and length>0' <<<"${validated_bot_reviewers}" >/dev/null; then
+            echo "Contract must define at least one validated bot reviewer" >&2
+            exit 1
+          fi
+
+          reviews_json=$(curl -fsS -H "Authorization: Bearer ${GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${REPO_SLUG}/pulls/${PR_NUMBER}/reviews?per_page=100" \
-            | jq -r '[.[] | select(.state=="APPROVED") | .user.login] | unique | length')
-          if [ "${approvals}" -lt "${REQUIRED_APPROVALS}" ]; then
-            echo "Need ${REQUIRED_APPROVALS} approvals; got ${approvals}" >&2
+          )
+
+          if ! jq -e 'type=="array"' <<<"${reviews_json}" >/dev/null; then
+            echo "Unexpected GitHub reviews API response" >&2
+            echo "${reviews_json}" >&2
+            exit 1
+          fi
+
+          approved_reviewers=$(jq -c '
+            map(select(.user.login != null))
+            | sort_by(.submitted_at // .id)
+            | group_by(.user.login)
+            | map(last)
+            | map(select(.state=="APPROVED"))
+            | map(.user.login)
+          ' <<<"${reviews_json}")
+
+          approvals_observed=$(jq -r 'length' <<<"${approved_reviewers}")
+          approved_bot_reviewers=$(jq -c -n \
+            --argjson approved "${approved_reviewers}" \
+            --argjson bots "${validated_bot_reviewers}" \
+            '$bots | map(select(. as $bot | ($approved | index($bot)) != null))')
+          approved_human_reviewers=$(jq -c -n --argjson approved "${approved_reviewers}" \
+            '$approved | map(select(endswith("[bot]") | not))')
+          bot_approvals_observed=$(jq -r 'length' <<<"${approved_bot_reviewers}")
+          human_approvals_observed=$(jq -r 'length' <<<"${approved_human_reviewers}")
+          reviewer_1=$(jq -r '.[0] // empty' <<<"${approved_bot_reviewers}")
+
+          echo "approvals_observed=${approvals_observed}"
+          echo "bot_approvals_observed=${bot_approvals_observed}"
+          echo "human_approvals_observed=${human_approvals_observed}"
+          echo "reviewer_1=${reviewer_1:-<missing>}"
+          echo "approved_reviewers=$(jq -r 'join(\",\")' <<<"${approved_reviewers}")"
+
+          if [ "${approvals_observed}" -lt "${required_approvals}" ]; then
+            echo "Need ${required_approvals} total approvals; got ${approvals_observed}" >&2
+            exit 1
+          fi
+          if [ "${bot_approvals_observed}" -lt "${required_bot_approvals}" ]; then
+            echo "Need ${required_bot_approvals} validated bot approval(s); got ${bot_approvals_observed}" >&2
+            exit 1
+          fi
+          if [ "${human_approvals_observed}" -lt "${required_human_approvals}" ]; then
+            echo "Need ${required_human_approvals} human approval(s); got ${human_approvals_observed}" >&2
+            exit 1
+          fi
+          if [ -z "${reviewer_1}" ]; then
+            echo "reviewer_1 is missing: no validated bot reviewer approved this PR" >&2
             exit 1
           fi

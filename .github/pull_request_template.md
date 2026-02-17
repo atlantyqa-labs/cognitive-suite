@@ -33,3 +33,4 @@ Rellena si aplica. Usa `python3` para validar JSON y no incluyas tokens en claro
 - [ ] He ejecutado el checklist demo/lite (`TESTING_GUIDE.md`) o he justificado si no aplica.
 - [ ] La documentación se ha actualizado (README, docs/...).
 - [ ] Las revisiones obligatorias se han asignado automáticamente mediante CODEOWNERS.
+- [ ] `reviewer_1` está aprobado por un bot validado según `.github/contracts/main-entry-review-gate.json`.

@@ -1,0 +1,13 @@
+{
+  "required_approvals": 2,
+  "required_human_approvals": 1,
+  "required_bot_approvals": 1,
+  "reviewer_1_role": "validated_bot",
+  "validated_bot_reviewers": [
+    "atlantyqa-review-bot[bot]",
+    "copilot-swe-agent[bot]",
+    "github-actions[bot]",
+    "dependabot[bot]"
+  ],
+  "description": "Main merge contract: reviewer_1 must be an approved reviewer from validated_bot_reviewers."
+}
