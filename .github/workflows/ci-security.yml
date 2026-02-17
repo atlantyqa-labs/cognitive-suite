@@ -95,7 +95,12 @@ jobs:
           GITLEAKS_IMAGE: ghcr.io/gitleaks/gitleaks:latest
         run: |
           set -euo pipefail
-          args=(detect --source=/repo --config=/repo/.gitleaks.toml --report-format sarif --report-path /repo/gitleaks.sarif)
+          args=(detect --source=/repo --report-format sarif --report-path /repo/gitleaks.sarif)
+          if [ -f .gitleaks.toml ]; then
+            args+=(--config=/repo/.gitleaks.toml)
+          else
+            echo "No .gitleaks.toml found; using gitleaks default config."
+          fi
           if [ -n "${GITLEAKS_LICENSE:-}" ]; then
             docker run --rm -e GITLEAKS_LICENSE="$GITLEAKS_LICENSE" -v "$PWD:/repo" "$GITLEAKS_IMAGE" "${args[@]}"
           else
