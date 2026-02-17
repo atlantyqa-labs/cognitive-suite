@@ -41,6 +41,13 @@ What it adds:
 - Dependencies for compliance/security checks
 - Local readiness for `ci-security` workflows
 
+## Canonical VSCode profile (early-adopter UX)
+
+For a consistent editor setup across the team:
+
+- Use the versioned `.vscode/` workspace files
+- Follow the guide: [VSCode for early adopters](vscode-tooling-setup.en.md)
+
 ## 3. Android Early Adopter (Termux)
 
 Goal: mobile contribution with hybrid local/remote operation.

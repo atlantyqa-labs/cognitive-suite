@@ -1,173 +1,88 @@
-# Configuración de VSCode - Nuevas Herramientas de Desarrollo
+---
+title: VSCode para early-adopters
+---
 
-Este documento describe las extensiones y herramientas de desarrollo que se han configurado en VSCode para mejorar el flujo de trabajo en **cognitive-suite**.
+# Perfil canonizado de VSCode
 
-## Extensiones Recomendadas
+Esta guía define la configuración **estándar y versionada** de VSCode para
+early-adopters de `cognitive-suite` (developer y devsecops).
 
-Se han agregado automáticamente las siguientes extensiones recomendadas (visible en la vista de extensiones):
+## Qué se canoniza en el repositorio
 
-### Lenguajes y Linting
-- **ms-python.python**: Soporte completo de Python
-- **ms-python.vscode-pylance**: Análisis estático avanzado de Python
-- **charliermarsh.ruff**: Formateador y linter de Python (rápido, moderno)
-- **timonwong.shellcheck**: Análisis estático para scripts bash
-- **shellformat.shell-format**: Formateador automático para scripts shell
-- **redhat.vscode-yaml**: Validación y formato para archivos YAML
+El workspace queda definido en:
 
-### Control de Versiones y Colaboración
-- **eamodio.gitlens**: Historial de cambios integrado
-- **github.vscode-github-actions**: Soporte nativo para GitHub Actions
-- **ms-azure-tools.vscode-docker**: Manejo de contenedores Docker
+- `.vscode/settings.json`
+- `.vscode/extensions.json`
+- `.vscode/tasks.json`
 
-### Herramientas de Desarrollo
-- **ms-vscode.makefile-tools**: Soporte para Makefiles
-- **redhat.vscode-json-schema**: Validación de esquemas JSON
-- **gruntfuggly.todo-tree**: Administración de tareas (TODO, FIXME)
-- **ms-vscode-remote.remote-containers**: Desarrollo en contenedores
-- **ms-vscode-remote.remote-ssh**: Desarrollo remoto por SSH
+Con esto, cualquier miembro del equipo abre el repo y obtiene una base común
+("misma imagen y semejanza") para linting, formato, tareas y terminal.
 
-## Configuración Automática
+## Configuración clave
 
-### Formateo y Linting Automático (OnSave)
+### Python
 
-1. **Python**:
-   - Formateador: `ruff`
-   - Actions al guardar: Aplicar fixes y organizar imports automáticamente
+- Interpreter por defecto: `${workspaceFolder}/.venv/bin/python`
+- Activación automática del entorno en terminal
+- Formateo con Ruff al guardar
+- Fixes/imports organizados con acciones explícitas de Ruff
 
-2. **Shell Scripts**:
-   - Formateador: `shfmt`
-   - Aplica formato automático al guardar
+### Shell, YAML y JSON
 
-3. **YAML/JSON**:
-   - Validación automática
-   - Formateo al guardar
+- Formato on-save para shell (`shell-format`)
+- Formato on-save para YAML y JSON
+- Perfil de terminal Linux por defecto: `bash -l`
 
-### Configuraciones de Editor
+### Higiene del workspace
 
-- **Ancho de línea**: Guías visibles en 80 y 120 caracteres
-- **Trailing whitespace**: Eliminado automáticamente
-- **Final newline**: Se inserta automáticamente
-- **Word wrap**: Habilitado para mejor legibilidad
+- Exclusión de caches y entornos (`.venv`, `.venv-android`, `node_modules`)
+- Reglas de edición comunes: `rulers` 80/120, trim whitespace, newline final
 
-## Tareas Disponibles (Ctrl+Shift+P)
+## Extensiones recomendadas
 
-Ejecuta cualquiera de estas tareas desde el comando *Run Task*:
+El archivo `.vscode/extensions.json` recomienda el stack base:
 
-### Linting
-- **Lint: Shell scripts** - Verifica errores en scripts bash
-- **Lint: Python files** - Verifica código Python con ruff
+- Python + Pylance + Ruff
+- ShellCheck + Shell Format
+- YAML
+- Docker
+- GitHub Actions
+- GitLens
+- Makefile Tools
+- Remote SSH / Dev Containers
 
-### Formateo
-- **Format: Shell scripts** - Aplica formato automático a scripts
-- **Format: Python files** - Aplica formato automático a código Python
+## Tareas incluidas (Run Task)
 
-### Pruebas
-- **Test: E2E scripts (dry-run)** - Ejecuta pruebas E2E en modo seco
-- **Validate: JSON schemas** - Valida esquemas JSON/JSONL
+`.vscode/tasks.json` publica tareas operativas reales del repo:
 
-### Construcción
-- **Build: Docker images** - Valida configuración Docker Compose
-- **Docs: Build MkDocs** - Construye documentación local
+- `Bootstrap: Developer (full)`
+- `Bootstrap: DevSecOps (full)`
+- `Bootstrap: Stakeholder Demo (es)`
+- `Checks: Bootstrap Smoke`
+- `Docs: Build Public (strict)`
+- `Docs: Build Internal (strict)`
+- `Security: pip-audit core`
+- `Docker: Build Stack`
+- `Run: UI local`
 
-### Desarrollo
-- **Dev: Bootstrap environment** - Inicializa el ambiente de desarrollo
-- **Run: Frontend Streamlit** - Lanza interfaz Streamlit
-- **Run: Pipeline analysis** - Ejecuta análisis del pipeline
+## Onboarding recomendado (Ubuntu/Debian)
 
-## Atajos de Teclado Recomendados
-
-| Atajo | Acción |
-|-------|--------|
-| `Ctrl+Shift+L` | Lint Shell scripts |
-| `Ctrl+Shift+P` | Lint Python files |
-| `Ctrl+Shift+F` | Format Shell scripts |
-| `Alt+Shift+F` | Format Python files |
-| `Ctrl+Shift+T` | Run E2E Tests |
-
-## Primeros Pasos
-
-1. **Instalar extensiones**:
-   - Abre VSCode
-   - Ve a *Extensions* (Ctrl+Shift+X)
-   - Se mostrará un aviso de "Extensiones recomendadas"
-   - Haz clic en "Install All"
-
-2. **Configurar Python**:
+1. Ejecuta bootstrap por rol:
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
+   ./scripts/bootstrap.sh --role developer --profile full
    ```
+2. Abre el repo con VSCode.
+3. Instala las extensiones recomendadas cuando VSCode lo sugiera.
+4. Verifica interpreter: `.venv/bin/python`.
+5. Ejecuta `Run Task` para validar flujo (`Checks: Bootstrap Smoke`).
 
-3. **Instalar herramientas de desarrollo**:
-   ```bash
-   sudo apt-get update
-   sudo apt-get install -y shellcheck shfmt python3-ruff
-   ```
+## Android early-adopter (Termux)
 
-4. **Validar configuración**:
-   - Abre un archivo `.py` → se formateará automáticamente
-   - Abre un archivo `.sh` → se validará con shellcheck
+En Android, el bootstrap genera `.venv-android`. Si trabajas desde VSCode
+con host remoto/SSH, usa ese interpreter remoto y mantén estas mismas tareas
+como referencia operativa del repositorio.
 
-## Validación de Esquemas JSONL
+## Notas de seguridad
 
-El workspace soporta validación automática de archivos JSONL contra esquemas:
-
-- **Esquemas disponibles**:
-  - `schemas/bot-clickops.schema.json` → para evidencias de bots
-  - `schemas/github-migration-clickops.schema.json` → para migraciones
-  - `schemas/cognitive-schema.yaml` → para configuraciones
-  - `schemas/insight.schema.json` → para datos de insight
-
-## Workspace Settings
-
-El archivo `.vscode/settings.json` configura:
-
-- Exclusión de archivos temporales (`__pycache__`, `.git`)
-- Perfil terminal por defecto: `bash`
-- Formateadores por lenguaje
-- Severity levels para linting
-- Indentación y espacios
-
-## GitHub Actions Integration
-
-Se muestra automáticamente:
-- Estado de los workflows
-- Resultados de CI/CD
-- Pull requests y checks
-
-Usa la pestaña de **GitHub** en el explorador lateral.
-
-## Notas de Seguridad
-
-- Los tokens y secretos NO se guardan en `.vscode/`
-- Usa variables de entorno para credenciales locales
-- Los archivos de configuración son públicos y seguros
-
-## Troubleshooting
-
-### Shellcheck no funciona
-```bash
-sudo apt-get install -y shellcheck
-```
-
-### Ruff no está disponible
-```bash
-pip install ruff
-```
-
-### Formateador de Python no se aplica
-- Verifica que `requirements.txt` incluya `ruff`
-- Reinicia VSCode
-
-### Tareas no aparecen
-- Abre la paleta de comandos: `Ctrl+Shift+P`
-- Escribe: "Run Task"
-- Verifica que `.vscode/tasks.json` existe
-
-## Referencias
-
-- [Python en VSCode](https://code.visualstudio.com/docs/languages/python)
-- [Shell en VSCode](https://code.visualstudio.com/docs/languages/shellscript)
-- [Ruff Documentation](https://github.com/astral-sh/ruff)
-- [ShellCheck](https://www.shellcheck.net/)
+- No se almacenan secretos en `.vscode/`.
+- Credenciales y tokens deben mantenerse en `.env*` locales no versionados.

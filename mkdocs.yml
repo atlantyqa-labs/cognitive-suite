@@ -124,6 +124,7 @@ plugins:
             - Guías:
                 - Instalación: installation.md
                 - Bootstraps por audiencia: bootstrap-audiences.md
+                - VSCode para early-adopters: vscode-tooling-setup.md
                 - Plan de adopción: adoption-plan.md
                 - Plan de ejecución: execution-plan.md
                 - Plan de ejecución early adopters: execution-plan-early-adopters.md
@@ -173,6 +174,7 @@ plugins:
             - Guides:
                 - Installation: installation.en.md
                 - Audience Bootstraps: bootstrap-audiences.en.md
+                - VSCode for early adopters: vscode-tooling-setup.en.md
                 - Adoption Plan: adoption-plan.en.md
                 - Execution Plan: execution-plan.en.md
                 - Execution Plan (Early Adopters): execution-plan-early-adopters.en.md

@@ -41,6 +41,13 @@ Qué añade:
 - Dependencias para controles de seguridad y cumplimiento
 - Preparación para ejecutar `ci-security` localmente
 
+## Perfil VSCode canonizado (early-adopter UX)
+
+Para trabajar con una configuración homogénea de editor en todo el equipo:
+
+- Usa la configuración versionada en `.vscode/`
+- Sigue la guía: [VSCode para early-adopters](vscode-tooling-setup.md)
+
 ## 3. Early-adopter en Android (Termux)
 
 Enfoque: contribución móvil y operación híbrida (local + host remoto).
