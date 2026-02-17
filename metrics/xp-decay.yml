@@ -1,0 +1,9 @@
+version: 1
+
+decay:
+  default:
+    half_life_days: 180
+    floor_ratio: 0.4
+    apply_to:
+      - xp_effective
+

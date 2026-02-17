@@ -1,0 +1,19 @@
+version: 1
+
+labs:
+  LAB-010:
+    title: "Inmersion profunda"
+    unlock:
+      credits: 1
+      xp_effective: 200
+      badges:
+        - owner_badge
+  LAB-020:
+    title: "GitOps Steward"
+    unlock:
+      credits: 1
+      xp_regulatory: 100
+      trust_domains:
+        - security
+        - compliance
+

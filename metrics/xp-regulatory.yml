@@ -1,0 +1,22 @@
+version: 1
+
+regulatory_xp:
+  security_review:
+    label: "Security review approved"
+    xp: 40
+    tags:
+      - security
+      - review
+  compliance_check:
+    label: "Compliance checklist validated"
+    xp: 30
+    tags:
+      - compliance
+      - controls
+  qa_audit:
+    label: "QA audit completed"
+    xp: 20
+    tags:
+      - quality
+      - audit
+

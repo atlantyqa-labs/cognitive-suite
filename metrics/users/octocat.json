@@ -1,0 +1,48 @@
+{
+  "user": "octocat",
+  "xp_total": 320,
+  "xp_effective": 220,
+  "xp_regulatory": 100,
+  "level": "L2",
+  "badges": {
+    "owner_badge": {
+      "awarded_at": "2026-02-06T18:40:00Z",
+      "xp": 50,
+      "source_pr": 2
+    }
+  },
+  "roles": [
+    "reviewer"
+  ],
+  "trust_domains": [
+    "security",
+    "compliance"
+  ],
+  "labs_unlocked": [
+    "LAB-010"
+  ],
+  "labs_locked": [
+    "LAB-020"
+  ],
+  "lab_credits": 1,
+  "history": [
+    {
+      "type": "badge",
+      "name": "owner_badge",
+      "xp": 50,
+      "timestamp": "2026-02-06T18:40:00Z"
+    },
+    {
+      "type": "regulatory",
+      "name": "security_review",
+      "xp": 100,
+      "non_decay": true,
+      "timestamp": "2026-02-09T10:00:00Z"
+    }
+  ],
+  "last_seen": "2026-02-17T12:00:00Z",
+  "feedback": [
+    "Aporta revisiones consistentes en PR de cumplimiento."
+  ]
+}
+

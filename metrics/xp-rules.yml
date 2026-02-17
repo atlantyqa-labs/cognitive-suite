@@ -1,0 +1,23 @@
+version: 1
+
+badges:
+  owner_badge:
+    label: "Owner Badge"
+    description: "Reconoce PRs aprobadas por CODEOWNERS en early adopters."
+    base_xp: 50
+    multiplier: 1.0
+
+levels:
+  L0:
+    label: "Explorer"
+    min_xp: 0
+  L1:
+    label: "Builder"
+    min_xp: 100
+  L2:
+    label: "Steward"
+    min_xp: 250
+  L3:
+    label: "Mentor"
+    min_xp: 500
+
