@@ -25,6 +25,42 @@ follow these steps on your machine:
 6. Launch the analysis with `python cogctl.py analyze`. Results will be stored
    in `outputs/insights/analysis.json`.
 
+### Recommended role-based bootstrap (Ubuntu/Debian Linux)
+
+To speed up technical onboarding:
+
+```bash
+# Developer
+./scripts/bootstrap.sh --role developer --profile full
+
+# DevSecOps
+./scripts/bootstrap.sh --role devsecops --profile full
+```
+
+This script prepares system dependencies, local Python environment, and project
+directory structure.
+
+### Android bootstrap (Termux)
+
+For mobile early adopters:
+
+```bash
+./scripts/bootstrap-android.sh --role developer --profile lite
+```
+
+This mode focuses on docs/validation/CLI. For heavy workloads, use a remote
+Ubuntu host via `DOCKER_HOST=ssh://...`.
+
+### End-user / stakeholder bootstrap
+
+To evaluate business value with minimal setup:
+
+```bash
+./scripts/bootstrap-stakeholder.sh --lang en --run-demo
+```
+
+Then open `http://localhost:8501`.
+
 ## Debian package generation
 
 The suite includes a helper script to package all components into a `.deb`

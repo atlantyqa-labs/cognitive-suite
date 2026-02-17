@@ -105,6 +105,7 @@ La suite cuenta con un portal de documentación completo generado con MkDocs Mat
 
 - 📖 **Portal de Docs**: `https://atlantyqa-labs.github.io/cognitive-suite/`
 - 🛠️ [Guía de Instalación](docs/installation.md)
+- 🧭 [Bootstraps por Audiencia](docs/bootstrap-audiences.md)
 - 🧭 [Visión de Usuario](docs/user-vision.md)
 - 🤝 [Cómo Contribuir](CONTRIBUTING.md)
 

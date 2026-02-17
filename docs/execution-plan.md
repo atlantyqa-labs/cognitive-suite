@@ -27,10 +27,12 @@ git push -u origin main
 
 ## 🛠 3. Probar localmente
 ```bash
+./scripts/bootstrap.sh --role developer --profile full
+source .venv/bin/activate
 make build
 make run
 ```
-O usar el script:
+Validar bootstrap (smoke test):
 ```bash
 ./test-bootstrap.sh
 ```
