@@ -1,118 +1,138 @@
-<p align="center">
-  <img src="docs/assets/logo-h.svg" alt="Atlantyqa Cognitive Suite" width="600">
-</p>
+# Atlantyqa Universe
 
-<p align="center">
-  <strong>Soberanía Digital · Capital Cognitivo · Local-First Enclave</strong>
-</p>
+Control-plane para gobernar el ecosistema cognitive-suite en modelo multi-repo, multi-forge y local-first.
 
-<p align="center">
-  <a href="https://github.com/atlantyqa-labs/cognitive-suite/actions"><img src="https://img.shields.io/github/actions/workflow/status/atlantyqa-labs/cognitive-suite/ci.yml?branch=main&label=CI&style=flat-square" alt="CI"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-EUPL--1.2-blue?style=flat-square" alt="License"></a>
-  <img src="https://img.shields.io/badge/Learning-By_Doing-orange?style=flat-square" alt="Learning">
-  <img src="https://img.shields.io/badge/Sovereignty-High-purple?style=flat-square" alt="Sovereignty">
-</p>
+Onboarding rapido para colaboradores: `GET-STARTED.md`
 
----
+## Contexto actual
 
-## 🧠 Atlantyqa Cognitive Suite
+- repositorio control-plane: `atlantyqa-universe`
+- rama por defecto remota: `main`
+- repositorio publico generado: `https://github.com/atlantyqa-labs/cognitive-suite`
+- colaboracion operativa: L0KY + inno
 
-> **No venimos solo a construir software. Entrenamos criterio humano para cooperar con sistemas inteligentes.**
+## Objetivo conjunto (L0KY + inno)
 
-**Atlantyqa Cognitive Suite** es un ecosistema *local-first* diseñado para la ingesta, análisis semántico y gobernanza de capital cognitivo. Este proyecto permite a individuos y cooperativas gestionar sus datos de forma soberana, reproducible y auditable, alineándose con los estándares de privacidad y soberanía digital europea.
+Construir una base unica de conocimiento y ejecucion para:
 
-### 🌟 Pilares del Proyecto
+1. gobernar organizaciones, proyectos y repositorios (GitHub, GitLab, Gitea y otros)
+2. integrar frontend, backend, data, operaciones y UX/UI bajo GitOps
+3. convertir `inputs/repositories/**` en portfolio trazable de proyectos fuente
+4. producir outputs publicables y auditables, sin exponer logica interna sensible
+5. operar con soberania tecnica (bare-metal Ubuntu, microk8s, nube privada y evolucion web3)
 
-- **Soberanía Digital**: Ejecución local (Enclave) sin dependencia de nubes externas para el procesamiento crítico.
-- **Aprendizaje Gamificado**: Ruta de aprendizaje basada en la práctica ("Learning by Doing").
-- **Ecosistema Cooperativo**: Diseñado para el capital compartido en comunidades técnicas y sociales.
+## Diagnostico forense SCA (2026-02-16)
 
----
+Reporte completo: `docs/internal/sca-forensic-diagnostic-2026-02-16.md`
 
-## 🔁 Flujo de Inteligencia
+Resultado ejecutivo:
 
-La suite automatiza el ciclo de vida del dato desde su origen hasta su visualización y persistencia segura:
+- Python SCA (`pip-audit`) sobre 14 manifests: `0` vulnerabilidades conocidas
+- Node SCA (`npm audit`) sobre 2 lockfiles: `0` vulnerabilidades conocidas
+- paridad root/export (`requirements*` y `package-lock.json`): `MATCH`
+- incidencia observada (`Failed to upgrade pip`) diagnosticada como problema de entorno/cache/red, no como hallazgo CVE
 
-```mermaid
-graph LR
-    A[Fuentes de Datos] -->|Ingesta| B[Ingestor Multi-formato]
-    B -->|Normalización| C[Pipeline Cognitivo]
-    C -->|NLP / Semántica| D[Análisis & Insights]
-    D -->|Visualización| E[UX Prototype]
-    D -->|Persistencia| F[GitOps Sync]
-```
+Evidencia en:
 
----
+- `outputs/sca-forensic/requirements.txt.pip-audit.json`
+- `outputs/sca-forensic/requirements-ci.txt.pip-audit.json`
+- `outputs/sca-forensic/requirements-docs.txt.pip-audit.json`
+- `outputs/sca-forensic/frontend_requirements.txt.pip-audit.json`
+- `outputs/sca-forensic/ingestor_requirements.txt.pip-audit.json`
+- `outputs/sca-forensic/pipeline_requirements.txt.pip-audit.json`
+- `outputs/sca-forensic/pipeline_requirements-playground.txt.pip-audit.json`
+- `outputs/sca-forensic/frontend_ux-prototype.npm-audit.json`
 
-## ⚡ Quick Start
+## Metodo de gobierno operativo
 
-### A. Demo Local (Docker)
-Ideal para una primera exploración sin configurar el entorno de desarrollo.
+### Fase 1: Intake y clasificacion
+
+- cada repositorio en `inputs/repositories/**` se registra en:
+  - `gitops/repo-governance/plans/inputs-project-registry.tsv`
+- se clasifica por:
+  - dominio funcional
+  - sensibilidad
+  - cumplimiento
+  - estado de adopcion
+
+### Fase 2: Contratos y ontologia
+
+- contratos activos:
+  - `knowledge/contracts/view-contracts.yml`
+  - `knowledge/contracts/inputs-project-portfolio-governance.yml`
+- ontologia activa:
+  - `knowledge/datasets/taxonomy.ontology.yml`
+
+### Fase 3: Validacion tecnica y de conocimiento
+
+Gates obligatorios (no negociables):
 
 ```bash
-# 1. Login en el registro (requiere PAT si es privado)
-docker login ghcr.io
+bash scripts/e2e-local-validation.sh
 
-# 2. Desplegar servicios demo
-docker compose -f docker-compose.local-demo.yml up -d
+python3 scripts/validate-knowledge-uat.py \
+  --contracts knowledge/contracts/view-contracts.yml \
+  --ontology knowledge/datasets/taxonomy.ontology.yml \
+  --sectors docs/sectors/sector-hub.md \
+  --sectors-en docs/sectors/sector-hub.en.md
+
+python3 scripts/validate-knowledge-uat.py
 ```
-> [!TIP]
-> Accede a la interfaz en `http://localhost:8501` tras el despliegue.
 
-### B. Modo Desarrollador (Python CLI)
-Para aquellos que quieren entrar directo al código y personalizar el pipeline.
+### Fase 4: SCA forense y evidencia
+
+Ejecutar SCA con cache dedicada para evitar ruido de cache legacy:
 
 ```bash
-# Sincroniza y prepara el entorno
-python cogctl.py init
-
-# Ingesta y análisis
-python cogctl.py ingest data/input/mi_archivo.pdf
-python cogctl.py analyze
+bash scripts/sca-forensic-audit.sh
+cat outputs/sca-forensic/summary.tsv
 ```
 
----
+### Fase 5: PR governance y release discipline
 
-## 🎮 Ruta de Aprendizaje (Gamified)
+- cambios por PR con evidencia adjunta
+- release candidate en estado draft hasta cierre de riesgos
+- decision de waiver o bloqueo documentada en minuta tecnica
 
-Cada contribución es un paso en tu evolución como profesional de la Era Cognitiva.
+### Fase 6: Distribucion multi-forge
 
-| Nivel | Rol | Badge | Reto Sugerido |
-| :---: | :--- | :---: | :--- |
-| **1** | **Cognitive Explorer** | <img src="docs/assets/badge-cognitive-explore-level1.png" width="80"> | Ejecuta el flujo `init → ingest → analyze` y valida los resultados. |
-| **2** | **Cognitive Builder** | <img src="docs/assets/badge-cognitive-explore-level2.png" width="80"> | Ajusta pesos o categorías en el pipeline de análisis semántico. |
-| **3** | **Cognitive Engineer** | <img src="docs/assets/badge-cognitive-explore-level3.png" width="80"> | Desarrolla un nuevo conector de ingesta o mejora los tests de CI. |
-| **4** | **Cognitive Steward** | <img src="docs/assets/badge-owner.png" width="80"> | Lidera la gobernanza de datos y mentoriza a nuevos compañeros. |
+- roadmap de olas:
+  - `gitops/repo-governance/plans/forge-distribution-wave-1.tsv`
+- estrategia operativa:
+  - `docs/internal/draft-release-monorepo-refactor-playbook.md`
 
----
+## Dominios de gobierno colaborativo
 
-## � Arquitectura
+- frontend
+- backend
+- data
+- operaciones
+- ux/ui
+- organizacional
+- normativo/legal
+- marketing y transferencia de conocimiento
+- cognitivo
 
-| Directorio | Propósito |
-| :--- | :--- |
-| `docs/` | Documentación técnica y estratégica (MkDocs). |
-| `ingestor/` | Extracción de contenido (PDF, DOCX, Audio, Vídeo). |
-| `pipeline/` | Motor de análisis cognitivo (spaCy + Transformers). |
-| `frontend/` | UI interactiva basada en Streamlit. |
-| `gitops/` | Automatización de flujos de sincronización. |
-| `schemas/` | Definición de contratos de datos (JSON Schema). |
+## Mapa rapido del repositorio
 
----
+| Ruta | Funcion |
+| --- | --- |
+| `docs/` | Documentacion funcional, tecnica y de gobernanza |
+| `knowledge/` | Contratos, ontologias y esquemas de conocimiento |
+| `gitops/` | Planes y artefactos de gobierno operativo |
+| `inputs/` | Fuentes de portfolio y repositorios externos a gobernar |
+| `outputs/` | Evidencia de validaciones y diagnosticos |
+| `scripts/` | Automatizaciones de validacion, SCA y bootstrap |
+| `exports/public-repos/` | Exportes publicables sanitizados |
 
-## 📚 Documentación Expandida
+## Artefactos clave de colaboracion L0KY
 
-La suite cuenta con un portal de documentación completo generado con MkDocs Material:
+- `docs/internal/loky-collaboration-governance-model.md`
+- `docs/internal/draft-release-monorepo-refactor-playbook.md`
+- `docs/internal/minuta-aprobacion-tecnica-draft-release-rc1.md`
+- `docs/internal/pr-body-draft-release-rc1.md`
+- `docs/internal/sca-forensic-diagnostic-2026-02-16.md`
 
-- 📖 **Portal de Docs**: `https://atlantyqa-labs.github.io/cognitive-suite/`
-- 🛠️ [Guía de Instalación](docs/installation.md)
-- 🧭 [Visión de Usuario](docs/user-vision.md)
-- 🤝 [Cómo Contribuir](CONTRIBUTING.md)
+## Licencia
 
----
-
-## ⚖️ Licencia y Modelo
-
-Este proyecto es software libre bajo la licencia **EUPL-1.2**.
-Desarrollado dentro del ecosistema **ATLANTYQA** como infraestructura de capital cognitivo compartido.
-
-> *"El futuro no se predice. Se entrena. Y se entrena mejor en cooperación."*
+EUPL-1.2. Ver `LICENSE`.
