@@ -277,9 +277,8 @@ Infrastructure that deploys AI with control, compliance, and measurable outcomes
 
 <div class="tactical-container tactical-container--compact" markdown="1">
 
-- **Downloadable one-pagers**: [EU](../sales/generated/eu.en.md) · [State/Regions](../sales/generated/state.en.md) · [Corporate](../sales/generated/corp.en.md) · [Municipal](../sales/generated/municipal.en.md) · [Integrators](../sales/generated/integrator.en.md)
-- **Trust Pack**: [Full pack](../sales/trust-pack.en.md) · [Overview](../trust/overview.en.md) · [Security & Compliance](../trust/security-compliance.en.md) · [Deployment models](../trust/deployment-models.en.md)
-- **Narrative & Playbook**: [Leadership Narrative](../sales/leadership-narrative.en.md) · [Objection Playbook](../sales/objection-playbook.en.md)
+- **Sector resources**: Available on request for institutional procurement and governance workflows.
+- **Trust & Governance**: [Overview](../trust/overview.en.md) · [Security & Compliance](../trust/security-compliance.en.md) · [Deployment models](../trust/deployment-models.en.md)
 
 </div>
 
@@ -287,6 +286,5 @@ Infrastructure that deploys AI with control, compliance, and measurable outcomes
 <p class="cta-panel__text">
 Ready for an institutional pilot with evidence from day one?
 </p>
-<a href="../../sales/trust-pack/" class="btn-primary btn-primary--inline">Request Trust Pack →</a>
+<a href="../trust/overview.en.md" class="btn-primary btn-primary--inline">View trust resources →</a>
 </div>
-

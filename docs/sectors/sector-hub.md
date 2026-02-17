@@ -277,9 +277,8 @@ Infraestructura cognitiva que despliega IA con control, cumplimiento y resultado
 
 <div class="tactical-container tactical-container--compact" markdown="1">
 
-- **One-pagers descargables**: [UE](../sales/generated/eu.md) · [Estado/CCAA](../sales/generated/state.md) · [Corporativo](../sales/generated/corp.md) · [Municipal](../sales/generated/municipal.md) · [Integradores](../sales/generated/integrator.md)
-- **Trust Pack**: [Paquete completo](../sales/trust-pack.md) · [Overview](../trust/overview.md) · [Security & Compliance](../trust/security-compliance.md) · [Modelos de despliegue](../trust/deployment-models.md)
-- **Narrativa y argumentario**: [Leadership Narrative](../sales/leadership-narrative.md) · [Objection Playbook](../sales/objection-playbook.md)
+- **Recursos por sector**: Disponibles bajo solicitud para procesos institucionales y comités de decisión.
+- **Trust & Governance**: [Overview](../trust/overview.md) · [Security & Compliance](../trust/security-compliance.md) · [Modelos de despliegue](../trust/deployment-models.md)
 
 </div>
 
@@ -287,6 +286,5 @@ Infraestructura cognitiva que despliega IA con control, cumplimiento y resultado
 <p class="cta-panel__text">
 ¿Preparado para un piloto institucional con evidencia desde el primer día?
 </p>
-<a href="../../sales/trust-pack/" class="btn-primary btn-primary--inline">Solicitar Trust Pack →</a>
+<a href="../trust/overview.md" class="btn-primary btn-primary--inline">Ver recursos de confianza →</a>
 </div>
-
