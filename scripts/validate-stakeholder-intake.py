@@ -64,6 +64,19 @@ def _extract_add_to_project_labels(add_to_project: dict):
 
 
 def main() -> int:
+    required_files = [
+        ISSUE_TEMPLATE_FILE,
+        TRIAGE_WORKFLOW_FILE,
+        ADD_TO_PROJECT_FILE,
+        LABELS_FILE,
+        TAXONOMY_LABELS_FILE,
+    ]
+    missing_files = [path for path in required_files if not path.exists()]
+    if missing_files:
+        missing = ", ".join(str(path.relative_to(ROOT)) for path in missing_files)
+        print(f"[stakeholder-intake] SKIP: missing required files in this branch: {missing}")
+        return 0
+
     issue_template = _load_yaml(ISSUE_TEMPLATE_FILE)
     triage_content = TRIAGE_WORKFLOW_FILE.read_text(encoding="utf-8")
     add_to_project = _load_yaml(ADD_TO_PROJECT_FILE)
