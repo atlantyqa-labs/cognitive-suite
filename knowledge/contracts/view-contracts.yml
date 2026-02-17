@@ -8,38 +8,43 @@ views:
       - regulated_private
       - compliance_risk
     required_sections:
-      - "Infraestructura cognitiva soberana para decisiones reguladas"
-      - "Universidades e investigacion"
-      - "Ayuntamientos y territorios ITI"
-      - "Banca y finanzas reguladas"
+      - "Soluciones Sectoriales"
+      - "Infraestructura Cognitiva · Soberanía Regulada"
+      - "Sectores Estratégicos"
+      - "Universidades e Investigación"
+      - "Ayuntamientos y Territorios ITI"
+      - "Banca y Finanzas Reguladas"
       - "Salud y hospitales"
-      - "PYMES multisector (ticket basico)"
-      - "Autonomos y microequipos"
-      - "Asesorias legales, fiscales y contables"
-      - "Administraciones publicas y entes instrumentales"
-      - "Cooperativas y economia social"
-      - "Otros sectores regulados"
-      - "Trust Pack + recursos"
-      - "CTA unico"
+      - "PYMES Multisector"
+      - "Autónomos y Microequipos"
+      - "Asesorías Legales y Fiscales"
+      - "Administraciones Públicas"
+      - "Cooperativas y Economía Social"
+      - "Infraestructuras Críticas y Sectores Regulados"
+      - "Trust Pack y Recursos"
     required_links:
-      - "../sales/trust-pack.md"
+      - "./universities.md"
+      - "./municipalities-iti.md"
+      - "./regulated-banking.md"
+      - "./healthcare.md"
+      - "./smbs.md"
+      - "./freelancers.md"
+      - "./advisory-firms.md"
+      - "./public-administration.md"
+      - "./cooperatives.md"
+      - "./other-regulated.md"
       - "../trust/overview.md"
       - "../trust/security-compliance.md"
       - "../trust/deployment-models.md"
-      - "../sales/generated/eu.md"
-      - "../sales/generated/state.md"
-      - "../sales/generated/corp.md"
-      - "../sales/generated/municipal.md"
-      - "../sales/generated/integrator.md"
     required_labels:
       - domain-docs
       - level-stable
     narrative_contract:
       markers:
-        - "### Problema a resolver"
-        - "### Resultado esperado"
-        - "### Despliegue inicial"
-        - "### Impacto esperado (90 dias)"
+        - "Problema a resolver"
+        - "Resultado esperado"
+        - "Contexto y Audiencia"
+        - "Valor e Impacto (90 días)"
       min_occurrences: 10
     taxonomy_bindings:
       domain: atlantyqa
@@ -53,38 +58,43 @@ views:
       - regulated_private
       - compliance_risk
     required_sections:
-      - "Sovereign cognitive infrastructure for regulated decision-making"
+      - "Sector Solutions"
+      - "Cognitive Infrastructure · Regulated Sovereignty"
+      - "Strategic Sectors"
       - "Universities & Research"
-      - "Municipalities & ITI territories"
+      - "Municipalities & ITI Territories"
       - "Banking & Regulated Finance"
       - "Healthcare & Hospitals"
-      - "SMBs across sectors (basic tier)"
-      - "Freelancers and micro-teams"
-      - "Legal, tax, and accounting firms"
-      - "Public administrations and public agencies"
-      - "Cooperatives and social economy organizations"
-      - "Other regulated sectors"
-      - "Trust Pack + resources"
-      - "Unified CTA"
+      - "SMBs & Enterprises"
+      - "Freelancers & Micro-teams"
+      - "Legal, Tax & Advisory"
+      - "Public Administrations"
+      - "Cooperatives & Social Economy"
+      - "Critical Infrastructure & Regulated Sectors"
+      - "Trust Pack & Resources"
     required_links:
-      - "../sales/trust-pack.md"
+      - "./universities.en.md"
+      - "./municipalities-iti.en.md"
+      - "./regulated-banking.en.md"
+      - "./healthcare.en.md"
+      - "./smbs.en.md"
+      - "./freelancers.en.md"
+      - "./advisory-firms.en.md"
+      - "./public-administration.en.md"
+      - "./cooperatives.en.md"
+      - "./other-regulated.en.md"
       - "../trust/overview.en.md"
       - "../trust/security-compliance.en.md"
       - "../trust/deployment-models.en.md"
-      - "../sales/generated/eu.md"
-      - "../sales/generated/state.md"
-      - "../sales/generated/corp.md"
-      - "../sales/generated/municipal.md"
-      - "../sales/generated/integrator.md"
     required_labels:
       - domain-docs
       - level-stable
     narrative_contract:
       markers:
-        - "### The challenge"
-        - "### What you gain"
-        - "### How we deploy"
-        - "### Expected impact (90 days)"
+        - "The challenge"
+        - "What you gain"
+        - "Context & Audience"
+        - "Value & Impact (90 days)"
       min_occurrences: 10
     taxonomy_bindings:
       domain: atlantyqa
@@ -98,12 +108,12 @@ views:
       - procurement
       - platform_ops
     required_sections:
-      - "Trust & Governance"
+      - "Confianza y Gobernanza"
       - "Contenido del Trust Pack"
     required_links:
-      - "One-pagers"
-      - "Security & Compliance"
-      - "RFPs"
+      - "../sectors/sector-hub.md"
+      - "../trust/security-compliance.md"
+      - "../trust/deployment-models.md"
     required_labels:
       - domain-docs
     taxonomy_bindings:
@@ -121,9 +131,9 @@ views:
       - "Trust & Governance"
       - "Trust Pack Contents"
     required_links:
-      - "one-pagers"
-      - "Security & Compliance"
-      - "RFPs"
+      - "../sectors/sector-hub.en.md"
+      - "../trust/security-compliance.en.md"
+      - "../trust/deployment-models.en.md"
     required_labels:
       - domain-docs
     taxonomy_bindings:
@@ -138,7 +148,7 @@ views:
       - compliance_risk
     required_sections:
       - "Politica de Privacidad"
-      - "Compromiso con la Privacidad"
+      - "Principios Clave"
     required_links:
       - "inno@atlantyqa.org"
     required_labels:
@@ -155,7 +165,7 @@ views:
       - compliance_risk
     required_sections:
       - "Privacy Policy"
-      - "Privacy Commitment"
+      - "Core Principles"
     required_links:
       - "inno@atlantyqa.org"
     required_labels:
