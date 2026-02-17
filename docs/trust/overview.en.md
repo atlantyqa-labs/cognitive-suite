@@ -14,7 +14,7 @@ ATLANTYQA demonstrates governance in every deployment: clear controls, continuou
 ### 📄 Sector One-pagers
 Downloadable documentation for EU, municipal, corporate, and integrator audiences. Designed for committees and procurement processes.
 
-[View one-pagers →](../sales/one-pagers.md)
+[View sector solutions →](../sectors/sector-hub.en.md)
 </div>
 
 <div class="feature-card feature-card--accent-left-navy" markdown="1">
@@ -40,7 +40,7 @@ Audit preparation time reduction, automated backoffice hours, and verifiable com
 
 <div class="cta-panel">
 <p class="cta-panel__text">
-Share the Trust Pack with committees, RFPs, and procurement squads.
+Explore trust resources for committees, RFPs, and procurement squads.
 </p>
-<a href="../sales/trust-pack/" class="btn-primary btn-primary--inline">Request Trust Pack →</a>
+<a href="../trust/security-compliance.en.md" class="btn-primary btn-primary--inline">View Security & Compliance →</a>
 </div>

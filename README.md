@@ -1,138 +1,175 @@
-# Atlantyqa Universe
+<p align="center">
+  <img src="docs/assets/logo-h.svg" alt="Atlantyqa Cognitive Suite" width="600">
+</p>
 
-Control-plane para gobernar el ecosistema cognitive-suite en modelo multi-repo, multi-forge y local-first.
+<p align="center">
+  <strong>Soberanía Digital · Capital Cognitivo · Local-First Enclave</strong>
+</p>
 
-Onboarding rapido para colaboradores: `GET-STARTED.md`
+<p align="center">
+  <a href="https://github.com/atlantyqa-labs/cognitive-suite/actions"><img src="https://img.shields.io/github/actions/workflow/status/atlantyqa-labs/cognitive-suite/ci.yml?branch=main&label=CI&style=flat-square" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-EUPL--1.2-blue?style=flat-square" alt="License"></a>
+  <img src="https://img.shields.io/badge/Learning-By_Doing-orange?style=flat-square" alt="Learning">
+  <img src="https://img.shields.io/badge/Sovereignty-High-purple?style=flat-square" alt="Sovereignty">
+</p>
 
-## Contexto actual
+---
 
-- repositorio control-plane: `atlantyqa-universe`
-- rama por defecto remota: `main`
-- repositorio publico generado: `https://github.com/atlantyqa-labs/cognitive-suite`
-- colaboracion operativa: L0KY + inno
+## 🧠 Atlantyqa Cognitive Suite
 
-## Objetivo conjunto (L0KY + inno)
+> **No venimos solo a construir software. Entrenamos criterio humano para cooperar con sistemas inteligentes.**
 
-Construir una base unica de conocimiento y ejecucion para:
+**Atlantyqa Cognitive Suite** es un ecosistema *local-first* diseñado para la ingesta, análisis semántico y gobernanza de capital cognitivo. Este proyecto permite a individuos y cooperativas gestionar sus datos de forma soberana, reproducible y auditable, alineándose con los estándares de privacidad y soberanía digital europea.
 
-1. gobernar organizaciones, proyectos y repositorios (GitHub, GitLab, Gitea y otros)
-2. integrar frontend, backend, data, operaciones y UX/UI bajo GitOps
-3. convertir `inputs/repositories/**` en portfolio trazable de proyectos fuente
-4. producir outputs publicables y auditables, sin exponer logica interna sensible
-5. operar con soberania tecnica (bare-metal Ubuntu, microk8s, nube privada y evolucion web3)
+### 🌟 Pilares del Proyecto
 
-## Diagnostico forense SCA (2026-02-16)
+- **Soberanía Digital**: Ejecución local (Enclave) sin dependencia de nubes externas para el procesamiento crítico.
+- **Aprendizaje Gamificado**: Ruta de aprendizaje basada en la práctica ("Learning by Doing").
+- **Ecosistema Cooperativo**: Diseñado para el capital compartido en comunidades técnicas y sociales.
 
-Reporte completo: `docs/internal/sca-forensic-diagnostic-2026-02-16.md`
+---
 
-Resultado ejecutivo:
+## 🔁 Flujo de Inteligencia
 
-- Python SCA (`pip-audit`) sobre 14 manifests: `0` vulnerabilidades conocidas
-- Node SCA (`npm audit`) sobre 2 lockfiles: `0` vulnerabilidades conocidas
-- paridad root/export (`requirements*` y `package-lock.json`): `MATCH`
-- incidencia observada (`Failed to upgrade pip`) diagnosticada como problema de entorno/cache/red, no como hallazgo CVE
+La suite automatiza el ciclo de vida del dato desde su origen hasta su visualización y persistencia segura:
 
-Evidencia en:
-
-- `outputs/sca-forensic/requirements.txt.pip-audit.json`
-- `outputs/sca-forensic/requirements-ci.txt.pip-audit.json`
-- `outputs/sca-forensic/requirements-docs.txt.pip-audit.json`
-- `outputs/sca-forensic/frontend_requirements.txt.pip-audit.json`
-- `outputs/sca-forensic/ingestor_requirements.txt.pip-audit.json`
-- `outputs/sca-forensic/pipeline_requirements.txt.pip-audit.json`
-- `outputs/sca-forensic/pipeline_requirements-playground.txt.pip-audit.json`
-- `outputs/sca-forensic/frontend_ux-prototype.npm-audit.json`
-
-## Metodo de gobierno operativo
-
-### Fase 1: Intake y clasificacion
-
-- cada repositorio en `inputs/repositories/**` se registra en:
-  - `gitops/repo-governance/plans/inputs-project-registry.tsv`
-- se clasifica por:
-  - dominio funcional
-  - sensibilidad
-  - cumplimiento
-  - estado de adopcion
-
-### Fase 2: Contratos y ontologia
-
-- contratos activos:
-  - `knowledge/contracts/view-contracts.yml`
-  - `knowledge/contracts/inputs-project-portfolio-governance.yml`
-- ontologia activa:
-  - `knowledge/datasets/taxonomy.ontology.yml`
-
-### Fase 3: Validacion tecnica y de conocimiento
-
-Gates obligatorios (no negociables):
-
-```bash
-bash scripts/e2e-local-validation.sh
-
-python3 scripts/validate-knowledge-uat.py \
-  --contracts knowledge/contracts/view-contracts.yml \
-  --ontology knowledge/datasets/taxonomy.ontology.yml \
-  --sectors docs/sectors/sector-hub.md \
-  --sectors-en docs/sectors/sector-hub.en.md
-
-python3 scripts/validate-knowledge-uat.py
+```mermaid
+graph LR
+    A[Fuentes de Datos] -->|Ingesta| B[Ingestor Multi-formato]
+    B -->|Normalización| C[Pipeline Cognitivo]
+    C -->|NLP / Semántica| D[Análisis & Insights]
+    D -->|Visualización| E[UX Prototype]
+    D -->|Persistencia| F[GitOps Sync]
 ```
 
-### Fase 4: SCA forense y evidencia
+---
 
-Ejecutar SCA con cache dedicada para evitar ruido de cache legacy:
+## ⚡ Quick Start
+
+### A. Demo Local (Docker)
+Ideal para una primera exploración sin configurar el entorno de desarrollo.
 
 ```bash
-bash scripts/sca-forensic-audit.sh
-cat outputs/sca-forensic/summary.tsv
+# 1. Login en el registro (requiere PAT si es privado)
+docker login ghcr.io
+
+# 2. Desplegar servicios demo
+docker compose -f docker-compose.local-demo.yml up -d
+```
+> [!TIP]
+> Accede a la interfaz en `http://localhost:8501` tras el despliegue.
+
+### B. Modo Desarrollador (Python CLI)
+Para aquellos que quieren entrar directo al código y personalizar el pipeline.
+
+```bash
+# Sincroniza y prepara el entorno
+python cogctl.py init
+
+# Ingesta y análisis
+python cogctl.py ingest data/input/mi_archivo.pdf
+python cogctl.py analyze
 ```
 
-### Fase 5: PR governance y release discipline
+---
 
-- cambios por PR con evidencia adjunta
-- release candidate en estado draft hasta cierre de riesgos
-- decision de waiver o bloqueo documentada en minuta tecnica
+## 🚀 Onboarding por Audiencia (Nuevo)
 
-### Fase 6: Distribucion multi-forge
+Para acelerar adopción en early-adopters, la suite incluye bootstraps por rol/dispositivo:
 
-- roadmap de olas:
-  - `gitops/repo-governance/plans/forge-distribution-wave-1.tsv`
-- estrategia operativa:
-  - `docs/internal/draft-release-monorepo-refactor-playbook.md`
+```bash
+# Developer (Ubuntu/Debian)
+./scripts/bootstrap.sh --role developer --profile full
 
-## Dominios de gobierno colaborativo
+# DevSecOps (Ubuntu/Debian)
+./scripts/bootstrap.sh --role devsecops --profile full
 
-- frontend
-- backend
-- data
-- operaciones
-- ux/ui
-- organizacional
-- normativo/legal
-- marketing y transferencia de conocimiento
-- cognitivo
+# Android (Termux, perfil ligero)
+./scripts/bootstrap-android.sh --role developer --profile lite
 
-## Mapa rapido del repositorio
+# Stakeholder / usuario final (demo rápida)
+./scripts/bootstrap-stakeholder.sh --lang es --run-demo
+```
 
-| Ruta | Funcion |
-| --- | --- |
-| `docs/` | Documentacion funcional, tecnica y de gobernanza |
-| `knowledge/` | Contratos, ontologias y esquemas de conocimiento |
-| `gitops/` | Planes y artefactos de gobierno operativo |
-| `inputs/` | Fuentes de portfolio y repositorios externos a gobernar |
-| `outputs/` | Evidencia de validaciones y diagnosticos |
-| `scripts/` | Automatizaciones de validacion, SCA y bootstrap |
-| `exports/public-repos/` | Exportes publicables sanitizados |
+Smoke test transversal de bootstraps:
 
-## Artefactos clave de colaboracion L0KY
+```bash
+./test-bootstrap.sh
+```
 
-- `docs/internal/loky-collaboration-governance-model.md`
-- `docs/internal/draft-release-monorepo-refactor-playbook.md`
-- `docs/internal/minuta-aprobacion-tecnica-draft-release-rc1.md`
-- `docs/internal/pr-body-draft-release-rc1.md`
-- `docs/internal/sca-forensic-diagnostic-2026-02-16.md`
+---
 
-## Licencia
+## 🧰 VSCode Canonizado para Early-Adopters
 
-EUPL-1.2. Ver `LICENSE`.
+Se versionó un perfil de workspace común para estandarizar setup local:
+
+- `.vscode/settings.json`
+- `.vscode/extensions.json`
+- `.vscode/tasks.json`
+
+Guía de uso:
+
+- ES: `docs/vscode-tooling-setup.md`
+- EN: `docs/vscode-tooling-setup.en.md`
+
+---
+
+## 🔒 Seguridad y SCA en la Rama
+
+Se replicó la auditoría de dependencias (pip-audit) para:
+
+- `requirements.txt`
+- `requirements-docs.txt`
+- `frontend/requirements.txt`
+- `ingestor/requirements.txt`
+- `pipeline/requirements.txt`
+
+Resultado: **No known vulnerabilities found** en los manifests auditables.
+
+---
+
+## 🎮 Ruta de Aprendizaje (Gamified)
+
+Cada contribución es un paso en tu evolución como profesional de la Era Cognitiva.
+
+| Nivel | Rol | Badge | Reto Sugerido |
+| :---: | :--- | :---: | :--- |
+| **1** | **Cognitive Explorer** | <img src="docs/assets/badge-cognitive-explore-level1.png" width="80"> | Ejecuta el flujo `init → ingest → analyze` y valida los resultados. |
+| **2** | **Cognitive Builder** | <img src="docs/assets/badge-cognitive-explore-level2.png" width="80"> | Ajusta pesos o categorías en el pipeline de análisis semántico. |
+| **3** | **Cognitive Engineer** | <img src="docs/assets/badge-cognitive-explore-level3.png" width="80"> | Desarrolla un nuevo conector de ingesta o mejora los tests de CI. |
+| **4** | **Cognitive Steward** | <img src="docs/assets/badge-owner.png" width="80"> | Lidera la gobernanza de datos y mentoriza a nuevos compañeros. |
+
+---
+
+## � Arquitectura
+
+| Directorio | Propósito |
+| :--- | :--- |
+| `docs/` | Documentación técnica y estratégica (MkDocs). |
+| `ingestor/` | Extracción de contenido (PDF, DOCX, Audio, Vídeo). |
+| `pipeline/` | Motor de análisis cognitivo (spaCy + Transformers). |
+| `frontend/` | UI interactiva basada en Streamlit. |
+| `gitops/` | Automatización de flujos de sincronización. |
+| `schemas/` | Definición de contratos de datos (JSON Schema). |
+
+---
+
+## 📚 Documentación Expandida
+
+La suite cuenta con un portal de documentación completo generado con MkDocs Material:
+
+- 📖 **Portal de Docs**: `https://atlantyqa-labs.github.io/cognitive-suite/`
+- 🛠️ [Guía de Instalación](docs/installation.md)
+- 🧭 [Bootstraps por Audiencia](docs/bootstrap-audiences.md)
+- 🧰 [VSCode para early-adopters](docs/vscode-tooling-setup.md)
+- 🧭 [Visión de Usuario](docs/user-vision.md)
+- 🤝 [Cómo Contribuir](CONTRIBUTING.md)
+
+---
+
+## ⚖️ Licencia y Modelo
+
+Este proyecto es software libre bajo la licencia **EUPL-1.2**.
+Desarrollado dentro del ecosistema **ATLANTYQA** como infraestructura de capital cognitivo compartido.
+
+> *"El futuro no se predice. Se entrena. Y se entrena mejor en cooperación."*

@@ -1,0 +1,91 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Bootstrap: Developer (full)",
+      "type": "shell",
+      "command": "./scripts/bootstrap.sh --role developer --profile full",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Bootstrap: DevSecOps (full)",
+      "type": "shell",
+      "command": "./scripts/bootstrap.sh --role devsecops --profile full",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Bootstrap: Stakeholder Demo (es)",
+      "type": "shell",
+      "command": "./scripts/bootstrap-stakeholder.sh --lang es --run-demo",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: Bootstrap Smoke",
+      "type": "shell",
+      "command": "./test-bootstrap.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Build Public (strict)",
+      "type": "shell",
+      "command": ".venv/bin/mkdocs build --strict --config-file mkdocs.public.yml --site-dir site-public",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docs: Build Internal (strict)",
+      "type": "shell",
+      "command": ".venv/bin/mkdocs build --strict --config-file mkdocs.yml --site-dir site-internal",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Security: pip-audit core",
+      "type": "shell",
+      "command": ".venv/bin/python -m pip_audit -r requirements.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Docker: Build Stack",
+      "type": "shell",
+      "command": "COMPOSE_PROFILES=gitops docker compose build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run: UI local",
+      "type": "shell",
+      "command": "make ui-local",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

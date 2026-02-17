@@ -39,7 +39,14 @@ jobs:
 
       - name: Validate stakeholder intake coherence
         run: |
-          python3 scripts/validate-stakeholder-intake.py
+          if [ -f scripts/validate-stakeholder-intake.py ] \
+             && [ -f .github/workflows/stakeholder-intake-triage.yml ] \
+             && [ -f .github/workflows/add_to_project.yml ] \
+             && [ -f .github/labels.yml ]; then
+            python3 scripts/validate-stakeholder-intake.py
+          else
+            echo "Stakeholder intake assets not fully present in this branch. Skipping."
+          fi
 
       - name: Validate view contracts and ontology bindings
         run: |

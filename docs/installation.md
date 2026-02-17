@@ -25,6 +25,42 @@ precompilados sigue estos pasos en tu equipo:
 6. Lanza el análisis con `python cogctl.py analyze`. Los resultados se
    almacenarán en `outputs/insights/analysis.json`.
 
+### Bootstrap recomendado por rol (Linux Ubuntu/Debian)
+
+Para acelerar el onboarding técnico:
+
+```bash
+# Developer
+./scripts/bootstrap.sh --role developer --profile full
+
+# DevSecOps
+./scripts/bootstrap.sh --role devsecops --profile full
+```
+
+El script prepara dependencias del sistema, entorno Python local y estructura
+de carpetas del proyecto.
+
+### Bootstrap para Android (Termux)
+
+Para early adopters móviles:
+
+```bash
+./scripts/bootstrap-android.sh --role developer --profile lite
+```
+
+Este modo prioriza documentación, validaciones y CLI. Para cargas pesadas se
+recomienda un host Ubuntu remoto vía `DOCKER_HOST=ssh://...`.
+
+### Bootstrap para usuarios finales y stakeholders
+
+Para evaluar valor funcional sin fricción técnica:
+
+```bash
+./scripts/bootstrap-stakeholder.sh --lang es --run-demo
+```
+
+Luego abre `http://localhost:8501`.
+
 ## Generación de paquete Debian
 
 La suite incluye un script de apoyo para empaquetar todos los componentes en

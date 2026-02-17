@@ -1,0 +1,24 @@
+name: CI GitOps
+
+on:
+  workflow_call:
+
+jobs:
+  gitops:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate gitops shell script syntax
+        run: |
+          set -euo pipefail
+          bash -n gitops/sync.sh
+
+      - name: Shellcheck (if available)
+        run: |
+          set -euo pipefail
+          if command -v shellcheck >/dev/null 2>&1; then
+            shellcheck gitops/sync.sh
+          else
+            echo "shellcheck not available. Skipping."
+          fi

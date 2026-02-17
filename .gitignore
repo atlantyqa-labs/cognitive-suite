@@ -44,6 +44,8 @@ bin/
 dist/
 build/
 site/
+site-public/
+site-internal/
 ui/
 *.whl
 *.iso
