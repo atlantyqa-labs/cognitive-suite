@@ -50,6 +50,13 @@ Anonymized evidence-pack samples for committee and procurement review.
 [View samples →](../trust/evidence-samples.en.md)
 </div>
 
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 📈 Official Engagement Analytics
+Institutional framework with GA4, Core Web Vitals, and WCAG 2.2 for continuous tracking.
+
+[View framework →](../trust/engagement-analytics.en.md)
+</div>
+
 </div>
 
 <div class="cta-panel">

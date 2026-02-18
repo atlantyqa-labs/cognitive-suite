@@ -108,6 +108,7 @@ plugins:
                 - Visión general: trust/overview.md
                 - Ruta enterprise: trust/buyer-path.md
                 - Evidence samples: trust/evidence-samples.md
+                - Analítica engagement: trust/engagement-analytics.md
                 - Seguridad y compliance: trust/security-compliance.md
                 - Modelos de despliegue: trust/deployment-models.md
             - Legal:
@@ -160,6 +161,7 @@ plugins:
                 - Overview: trust/overview.en.md
                 - Enterprise buyer path: trust/buyer-path.en.md
                 - Evidence samples: trust/evidence-samples.en.md
+                - Engagement analytics: trust/engagement-analytics.en.md
                 - Security & Compliance: trust/security-compliance.en.md
                 - Deployment Models: trust/deployment-models.en.md
             - Legal:

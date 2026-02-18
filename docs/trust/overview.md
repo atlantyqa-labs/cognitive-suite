@@ -50,6 +50,13 @@ Muestras anonimizadas de evidence pack para evaluación de comité y procurement
 [Ver muestras →](../trust/evidence-samples.md)
 </div>
 
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 📈 Analítica Oficial de Engagement
+Marco institucional con GA4, Core Web Vitals y WCAG 2.2 para seguimiento continuo.
+
+[Ver marco →](../trust/engagement-analytics.md)
+</div>
+
 </div>
 
 <div class="cta-panel">

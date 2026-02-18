@@ -1,0 +1,37 @@
+version: 1
+owner: growth-trust
+updated_at: 2026-02-18
+kpis:
+  - id: ga4_engaged_sessions
+    source: ga4
+    description: Sessions that meet GA4 engagement criteria.
+    cadence: monthly
+    target: "trend_up"
+  - id: ga4_engagement_rate
+    source: ga4
+    description: Share of engaged sessions over total sessions.
+    cadence: monthly
+    target: ">= 0.60"
+  - id: cwv_lcp_p75
+    source: search_console
+    description: Largest Contentful Paint at p75.
+    cadence: monthly
+    target: "<= 2.5"
+    unit: seconds
+  - id: cwv_inp_p75
+    source: search_console
+    description: Interaction to Next Paint at p75.
+    cadence: monthly
+    target: "<= 200"
+    unit: milliseconds
+  - id: cwv_cls_p75
+    source: search_console
+    description: Cumulative Layout Shift at p75.
+    cadence: monthly
+    target: "<= 0.1"
+    unit: score
+  - id: wcag22_aa_violations
+    source: accessibility_audit
+    description: Open WCAG 2.2 AA findings on critical templates.
+    cadence: release
+    target: "== 0"

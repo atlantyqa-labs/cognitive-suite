@@ -3,6 +3,9 @@
 !!! quote "Measurement Philosophy"
     **We don't measure to control, but to learn.** We seek to capture learning velocity, operational reliability, and community growth without falling into vanity metrics.
 
+!!! info "Institutional engagement metrics"
+    For committee-ready web tracking, use the official framework in [Trust > Engagement Analytics](../trust/engagement-analytics.en.md): GA4 (`engaged sessions`), Core Web Vitals, and WCAG 2.2.
+
 ---
 
 <div class="tactical-container tactical-container--compact">

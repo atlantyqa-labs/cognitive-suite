@@ -3,6 +3,9 @@
 !!! quote "Filosofía de Medición"
     **No medimos para controlar, sino para aprender.** Buscamos capturar la velocidad de aprendizaje, la fiabilidad operativa y el crecimiento de la comunidad sin caer en métricas de vanidad.
 
+!!! info "Métrica institucional de engagement"
+    Para seguimiento web orientado a comité usa el marco oficial en [Trust > Analítica de Engagement](../trust/engagement-analytics.md): GA4 (`engaged sessions`), Core Web Vitals y WCAG 2.2.
+
 ---
 
 <div class="tactical-container tactical-container--compact">
