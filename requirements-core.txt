@@ -1,0 +1,6 @@
+# Core dependency profile for default CI and lightweight local runs.
+# Keep this profile small and deterministic.
+
+jsonschema==4.26.0
+PyYAML==6.0.3
+referencing==0.37.0

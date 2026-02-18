@@ -1,0 +1,3 @@
+# UI profile for Streamlit/TUI components.
+
+-r frontend/requirements.txt

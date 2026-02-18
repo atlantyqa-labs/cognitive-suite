@@ -1,0 +1,5 @@
+# ML-heavy profile for ingestion/analysis features.
+# Installed in dedicated jobs (nightly/manual) to keep default CI fast.
+
+-r ingestor/requirements.txt
+-r pipeline/requirements.txt

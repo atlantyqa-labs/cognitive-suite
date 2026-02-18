@@ -61,6 +61,9 @@ jobs:
               - 'ops/**'
               - 'requirements.txt'
               - 'requirements-ci.txt'
+              - 'requirements-core.txt'
+              - 'requirements-ml.txt'
+              - 'requirements-ui.txt'
               - 'TESTING_GUIDE.md'
               - 'test-bootstrap.sh'
 
