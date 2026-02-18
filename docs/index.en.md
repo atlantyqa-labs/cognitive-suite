@@ -14,8 +14,30 @@ The <strong>Cognitive Sovereignty</strong> platform that transforms raw data int
 </p>
 
 <div class="hero-cta">
-  <a href="portal/quickstart/" class="btn-primary">Start Challenge</a>
-  <a href="installation/" class="btn-secondary">Technical Architecture</a>
+  <a href="trust/buyer-path.en.md" class="btn-primary">Enterprise Path</a>
+  <a href="installation/" class="btn-secondary">Technical Path</a>
+  <a href="portal/quickstart/" class="btn-secondary">Learning Path</a>
+</div>
+
+</div>
+
+## Committee and Annual Procurement
+
+<div class="features-grid" markdown="1">
+
+<div class="feature-card feature-card--accent-left-gold" markdown="1">
+### 💼 CFO
+Annual spend control with base + capacity wallet + ad-hoc, capped consumption, and quarterly KPIs.
+</div>
+
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 🔐 CISO / Compliance
+Continuous evidence, verifiable traceability, and local-first posture for audits and inspections.
+</div>
+
+<div class="feature-card feature-card--accent-left-green" markdown="1">
+### 🧭 CIO
+Modular lane-based integration without breaking core operations.
 </div>
 
 </div>

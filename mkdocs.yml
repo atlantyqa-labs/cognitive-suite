@@ -106,6 +106,7 @@ plugins:
                 - Otros sectores regulados: sectors/other-regulated.md
             - Confianza y gobernanza:
                 - Visión general: trust/overview.md
+                - Ruta enterprise: trust/buyer-path.md
                 - Seguridad y compliance: trust/security-compliance.md
                 - Modelos de despliegue: trust/deployment-models.md
             - Legal:
@@ -156,6 +157,7 @@ plugins:
                 - Other Regulated Sectors: sectors/other-regulated.en.md
             - Trust & Governance:
                 - Overview: trust/overview.en.md
+                - Enterprise buyer path: trust/buyer-path.en.md
                 - Security & Compliance: trust/security-compliance.en.md
                 - Deployment Models: trust/deployment-models.en.md
             - Legal:

@@ -31,6 +31,13 @@ Arquitecturas micro-CPD + edge. Lista de componentes: IA local, agentes, complia
 [Ver modelos →](../trust/deployment-models.md)
 </div>
 
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 🧭 Ruta de Compra Enterprise
+Ruta para CFO, CISO, Compliance y CIO con encaje AOA anual, cap de gasto y entregables verificables.
+
+[Ver ruta →](../trust/buyer-path.md)
+</div>
+
 <div class="feature-card feature-card--accent-left-green" markdown="1">
 ### 📊 Casos de Uso con KPIs
 Reducción de tiempo en auditorías, horas de backoffice automatizadas y métricas de cumplimiento verificables.

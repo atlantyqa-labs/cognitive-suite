@@ -31,6 +31,13 @@ Micro-CPD + edge architectures. Component list: local AI, agents, compliance, an
 [View models →](../trust/deployment-models.en.md)
 </div>
 
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 🧭 Enterprise Procurement Path
+Route for CFO, CISO, Compliance, and CIO with annual AOA fit, spend cap, and verifiable deliverables.
+
+[View path →](../trust/buyer-path.en.md)
+</div>
+
 <div class="feature-card feature-card--accent-left-green" markdown="1">
 ### 📊 Use Cases with KPIs
 Audit preparation time reduction, automated backoffice hours, and verifiable compliance metrics.

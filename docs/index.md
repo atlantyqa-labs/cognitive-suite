@@ -14,8 +14,30 @@ La plataforma de <strong>Soberanía Cognitiva</strong> que transforma datos brut
 </p>
 
 <div class="hero-cta">
-  <a href="portal/quickstart/" class="btn-primary">Comenzar Desafío</a>
-  <a href="installation/" class="btn-secondary">Arquitectura Técnica</a>
+  <a href="trust/buyer-path.md" class="btn-primary">Ruta Enterprise</a>
+  <a href="installation/" class="btn-secondary">Ruta Técnica</a>
+  <a href="portal/quickstart/" class="btn-secondary">Ruta Learning</a>
+</div>
+
+</div>
+
+## Para Comité y Compra Anual
+
+<div class="features-grid" markdown="1">
+
+<div class="feature-card feature-card--accent-left-gold" markdown="1">
+### 💼 CFO
+Control presupuestario anual con base + bolsa + ad-hoc, cap de consumo y KPIs trimestrales.
+</div>
+
+<div class="feature-card feature-card--accent-left-navy" markdown="1">
+### 🔐 CISO / Compliance
+Evidencia continua, trazabilidad verificable y postura local-first para auditoría e inspección.
+</div>
+
+<div class="feature-card feature-card--accent-left-green" markdown="1">
+### 🧭 CIO
+Integración modular por lanes sin romper el core operativo.
 </div>
 
 </div>
