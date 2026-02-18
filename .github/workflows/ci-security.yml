@@ -45,9 +45,9 @@ jobs:
         uses: anchore/scan-action@v3
         with:
           path: .
-          severity-cutoff: critical
+          severity-cutoff: high
           fail-build: true
-          only-fixed: true
+          only-fixed: false
           output-format: sarif
 
       - name: Upload SARIF
@@ -69,20 +69,90 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pip-audit
 
-      - name: Pip audit (core)
-        run: python -m pip_audit -r requirements.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Pip audit (core profile)
+        run: python -m pip_audit -r requirements-core.txt
 
       - name: Pip audit (docs)
-        run: python -m pip_audit -r requirements-docs.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu
+        run: python -m pip_audit -r requirements-docs.txt
 
-      - name: Pip audit (frontend)
-        run: python -m pip_audit -r frontend/requirements.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Pip audit (ui profile)
+        run: python -m pip_audit -r requirements-ui.txt
 
-      - name: Pip audit (ingestor)
-        run: python -m pip_audit -r ingestor/requirements.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Pip audit (ml profile)
+        run: python -m pip_audit -r requirements-ml.txt
 
-      - name: Pip audit (pipeline)
-        run: python -m pip_audit -r pipeline/requirements.txt --ignore-vuln CVE-2026-0994 --extra-index-url https://download.pytorch.org/whl/cpu
+  license-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install license tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pip-licenses
+
+      - name: Install dependency profiles (core/ui/docs)
+        run: |
+          pip install -r requirements-core.txt
+          pip install -r requirements-ui.txt
+          pip install -r requirements-docs.txt
+
+      - name: Optional ML profile for full license scan
+        env:
+          RUN_FULL_STACK: ${{ vars.RUN_FULL_STACK || 'false' }}
+        run: |
+          if [ "${RUN_FULL_STACK}" = "true" ]; then
+            pip install -r requirements-ml.txt
+          else
+            echo "RUN_FULL_STACK=false -> skipping ML profile for license report."
+          fi
+
+      - name: Export license reports
+        run: |
+          mkdir -p outputs/ci-evidence
+          pip-licenses --with-urls --format=json > outputs/ci-evidence/pip-licenses.json
+          pip-licenses --with-urls --format=csv > outputs/ci-evidence/pip-licenses.csv
+
+      - name: Upload license artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-license-reports
+          path: outputs/ci-evidence/pip-licenses.*
+          if-no-files-found: error
+
+  npm-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: NPM audit (ux-prototype)
+        run: |
+          set -euo pipefail
+          cd frontend/ux-prototype
+          npm ci
+          npm audit --json > npm-audit.json
+          total=$(jq -r '.metadata.vulnerabilities.total // 0' npm-audit.json)
+          echo "npm_audit_total=${total}"
+          if [ "${total}" -gt 0 ]; then
+            echo "NPM vulnerabilities detected in ux-prototype." >&2
+            exit 1
+          fi
+
+      - name: Upload npm audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ux-prototype-npm-audit
+          path: frontend/ux-prototype/npm-audit.json
+          if-no-files-found: error
 
   secrets:
     runs-on: ubuntu-latest
