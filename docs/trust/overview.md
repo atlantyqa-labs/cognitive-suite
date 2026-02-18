@@ -43,6 +43,13 @@ Ruta para CFO, CISO, Compliance y CIO con encaje AOA anual, cap de gasto y entre
 Reducción de tiempo en auditorías, horas de backoffice automatizadas y métricas de cumplimiento verificables.
 </div>
 
+<div class="feature-card feature-card--accent-left-gold" markdown="1">
+### 🧾 Trust Evidence Samples
+Muestras anonimizadas de evidence pack para evaluación de comité y procurement.
+
+[Ver muestras →](../trust/evidence-samples.md)
+</div>
+
 </div>
 
 <div class="cta-panel">

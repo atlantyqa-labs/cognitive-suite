@@ -1,0 +1,4 @@
+change_id,asset_group,requested_by,approved_by,window_utc,status,evidence_ref
+OT-2026-00041,line-a-plc,ot_operator,ot_security_lead,2026-01-19T22:00:00Z,completed,ot-change-2026-00041.json
+OT-2026-00042,line-b-scada,maintenance_team,ot_security_lead,2026-01-26T22:30:00Z,completed,ot-change-2026-00042.json
+OT-2026-00043,line-c-hmi,quality_team,ot_security_lead,2026-02-02T21:45:00Z,rolled_back,ot-change-2026-00043.json

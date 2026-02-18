@@ -43,6 +43,13 @@ Route for CFO, CISO, Compliance, and CIO with annual AOA fit, spend cap, and ver
 Audit preparation time reduction, automated backoffice hours, and verifiable compliance metrics.
 </div>
 
+<div class="feature-card feature-card--accent-left-gold" markdown="1">
+### 🧾 Trust Evidence Samples
+Anonymized evidence-pack samples for committee and procurement review.
+
+[View samples →](../trust/evidence-samples.en.md)
+</div>
+
 </div>
 
 <div class="cta-panel">

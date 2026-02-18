@@ -1,0 +1,27 @@
+{
+  "pack_id": "public-procurement-2026-q1-008",
+  "sector": "public-administration",
+  "classification": "anonymized-sample",
+  "frameworks": [
+    "LCSP",
+    "ENS",
+    "ENI"
+  ],
+  "milestones": [
+    {
+      "id": "hito-1",
+      "status": "completed",
+      "evidence": "delivery-note-001.pdf"
+    },
+    {
+      "id": "hito-2",
+      "status": "completed",
+      "evidence": "validation-report-001.pdf"
+    }
+  ],
+  "kpis": {
+    "traceability_coverage": 1.0,
+    "control_findings_open": 0
+  },
+  "notes": "Synthetic sample for procurement oversight review."
+}

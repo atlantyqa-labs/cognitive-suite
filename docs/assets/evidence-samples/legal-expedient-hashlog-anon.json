@@ -1,0 +1,28 @@
+{
+  "pack_id": "legal-evidence-2026-q1-003",
+  "sector": "legaltech-advisory",
+  "classification": "anonymized-sample",
+  "frameworks": [
+    "GDPR",
+    "LOPDGDD"
+  ],
+  "expedient_trace": [
+    {
+      "doc_id": "case-001-contract",
+      "sha256": "4c4d13289fbf9af6f77857f6f1d9f8f9f1aa4c757b156339e43a01594cf6b7d6",
+      "version": 3,
+      "role": "associate"
+    },
+    {
+      "doc_id": "case-001-annex-a",
+      "sha256": "44c5f59f6b2dca264f26f1adcfbb0cf95ab3f224d14dd8f5b1528f3ecf90fbd4",
+      "version": 2,
+      "role": "reviewer"
+    }
+  ],
+  "kpis": {
+    "files_traced": 2,
+    "missing_hashes": 0
+  },
+  "notes": "Synthetic sample for audit-readiness demonstration."
+}

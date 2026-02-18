@@ -1,0 +1,31 @@
+{
+  "pack_id": "fin-incident-2026-q1-001",
+  "sector": "banking-insurance",
+  "classification": "anonymized-sample",
+  "frameworks": [
+    "DORA",
+    "NIS2"
+  ],
+  "timeline": [
+    {
+      "ts": "2026-01-12T08:14:22Z",
+      "event": "alert_ingested",
+      "status": "open"
+    },
+    {
+      "ts": "2026-01-12T08:35:09Z",
+      "event": "containment_started",
+      "status": "in_progress"
+    },
+    {
+      "ts": "2026-01-12T09:42:55Z",
+      "event": "regulatory_draft_ready",
+      "status": "ready"
+    }
+  ],
+  "kpis": {
+    "time_to_pack_minutes": 89,
+    "evidence_items": 14
+  },
+  "notes": "Synthetic sample for committee review."
+}
