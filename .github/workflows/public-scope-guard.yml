@@ -1,0 +1,32 @@
+name: Public Scope Guard
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        if: github.event_name == 'pull_request'
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --prune --depth=1 origin "${{ github.base_ref }}"
+
+      - name: Verify public scope
+        run: |
+          set -euo pipefail
+          if [ -n "${{ github.base_ref }}" ]; then
+            python3 scripts/verify/public_scope_guard.py --base-ref "origin/${{ github.base_ref }}" --head-ref "HEAD"
+          else
+            python3 scripts/verify/public_scope_guard.py --head-ref "HEAD"
+          fi
