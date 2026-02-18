@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import Dashboard from './components/Dashboard';
-import IngestForm from './components/IngestForm';
-import ResultsView from './components/ResultsView';
-import GitOpsPanel from './components/GitOpsPanel';
+import React, { useState } from "react";
+import Dashboard from "./components/Dashboard";
+import GitOpsPanel from "./components/GitOpsPanel";
+import IngestForm from "./components/IngestForm";
+import ResultsView from "./components/ResultsView";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
+      case "dashboard":
         return <Dashboard />;
-      case 'analyze':
+      case "analyze":
         return <IngestForm onProcess={(view) => setActiveTab(view)} />;
-      case 'results':
-        return <ResultsView onBack={() => setActiveTab('analyze')} />;
-      case 'gitops':
+      case "results":
+        return <ResultsView onBack={() => setActiveTab("analyze")} />;
+      case "gitops":
         return <GitOpsPanel />;
       default:
         return <Dashboard />;
@@ -41,9 +41,7 @@ function App() {
           </div>
         </header>
 
-        <div className="max-w-[1600px] mx-auto">
-          {renderContent()}
-        </div>
+        <div className="max-w-[1600px] mx-auto">{renderContent()}</div>
       </main>
     </div>
   );

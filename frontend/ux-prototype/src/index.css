@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -21,7 +21,9 @@ body {
 
 .gradient-border {
   border: 2px solid transparent;
-  background-image: linear-gradient(#1e293b, #1e293b), linear-gradient(to right, #3b82f6, #8b5cf6);
+  background-image:
+    linear-gradient(#1e293b, #1e293b),
+    linear-gradient(to right, #3b82f6, #8b5cf6);
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
