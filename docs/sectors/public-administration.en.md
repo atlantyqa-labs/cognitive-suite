@@ -37,6 +37,42 @@ Management dashboard for cross-departmental projects, eliminating information si
 
 </div>
 
+## Vertical Operating Standard
+
+### 1. Primary regulatory scope
+
+- `LCSP` for public procurement and dossier control
+- `ENS` (RD 311/2022)
+- `ENI` (RD 4/2010)
+- `GDPR` and Spanish data-protection framework
+
+### 2. What is purchased annually (AOA)
+
+- **Annual base**: operations, security, traceability, and oversight reporting.
+- **Capacity wallet**: case processing, execution evidence, document control tasks.
+- **Regulatory ad-hoc**: extraordinary oversight, inspections, urgent requests.
+
+### 3. Committee KPIs
+
+| KPI | Operating target |
+| :--- | :--- |
+| Cases with complete traceability | Increasing monthly coverage |
+| Response time to oversight requests | Sustained reduction |
+| ENS/ENI evidence batches issued | Stable cadence per period |
+| Open compliance findings | Downward trend |
+
+### 4. Sample evidence (anonymized)
+
+- `procurement_evidence_pack_anon.pdf`: procurement dossier and execution support.
+- `ens_controls_snapshot_anon.json`: current applicable controls status.
+- `change_log_public_ops_anon.csv`: change and validation history.
+
+### 5. Declared limits
+
+- Does not replace statutory secretary/controller functions.
+- Does not replace legal-administrative opinions.
+- Requires entity-defined document-governance framework.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 Are you looking to modernize administration with security and compliance guarantees?

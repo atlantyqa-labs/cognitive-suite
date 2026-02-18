@@ -37,6 +37,42 @@ Ability to connect sovereign intelligence with existing operational systems (OT)
 
 </div>
 
+## Vertical Operating Standard
+
+### 1. Primary regulatory scope
+
+- `NIS2` for essential/important entities
+- `ISA/IEC 62443` for OT/IACS environments
+- `ISO 27001` and `ISO 22301` for security and continuity
+- Sector-specific obligations (e.g., energy markets, transport, water)
+
+### 2. What is purchased annually (AOA)
+
+- **Annual base**: operational security posture, logging, and governance.
+- **Capacity wallet**: incidents, OT changes, vendor risk, and reporting.
+- **Regulatory ad-hoc**: operational crises, inspections, regulatory change requests.
+
+### 3. Committee KPIs
+
+| KPI | Operating target |
+| :--- | :--- |
+| Incident pack generation time | `<24h` for critical incidents |
+| OT changes with complete evidence | Increasing monthly coverage |
+| Critical third parties assessed | Controlled supply-chain risk |
+| Audits with critical findings | Downward trend |
+
+### 4. Sample evidence (anonymized)
+
+- `ot_change_log_anon.json`: operational changes and validation.
+- `incident_pack_ot_anon.json`: timeline, containment, recovery.
+- `vendor_sbom_assessment_anon.csv`: dependency inventory and criticality.
+
+### 5. Declared limits
+
+- Does not replace external SOC services or sector CERT duties.
+- Does not replace mandatory regulatory certifications.
+- Requires client-defined segmentation architecture and operations model.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 Does your organization manage critical assets and need real operational sovereignty?

@@ -8,6 +8,9 @@ Infrastructure that deploys AI with control, compliance, and measurable outcomes
 
 ## Strategic Sectors
 
+!!! info "Common vertical standard"
+    Every sector page follows the same committee-ready operating structure: **regulatory scope**, **annual AOA procurement model**, **tracking KPIs**, **anonymized evidence samples**, and **declared limits**.
+
 <div class="premium-sector-card premium-sector-card--green" markdown="1">
 <div class="premium-sector-card__header" markdown="1">
 ### 🎓 Universities & Research

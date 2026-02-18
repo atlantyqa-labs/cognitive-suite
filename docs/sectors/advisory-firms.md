@@ -37,6 +37,42 @@ Validación automática de requisitos normativos por cliente, reduciendo el ries
 
 </div>
 
+## Estándar Operativo del Vertical
+
+### 1. Marco normativo principal
+
+- `RGPD` (arts. 5, 30, 32, 33 y 9 si aplica)
+- `LOPDGDD` (marco nacional complementario)
+- Normativa fiscal/inspección aplicable (`AEAT`, `VeriFactu` cuando corresponda)
+- Prevención de blanqueo (`PBC`) en operaciones sujetas
+
+### 2. Qué compras anual (AOA)
+
+- **Base anual**: entorno local-first, IAM, logging, respaldo y reporting mensual.
+- **Bolsa de capacidad**: validaciones, evidencia de expediente, scoring y automatizaciones.
+- **Ad-hoc regulatorio**: inspecciones, brechas, requerimientos urgentes o litigios.
+
+### 3. KPI de comité
+
+| KPI | Objetivo operativo |
+| :--- | :--- |
+| Expedientes con evidencia completa | Cobertura mensual creciente |
+| Tiempo de preparación de inspección | Reducción trimestral |
+| Incidentes documentados en `<24h` | Respuesta controlada |
+| Horas improductivas reducidas | Ganancia de margen por equipo |
+
+### 4. Evidence ejemplo (anonimizada)
+
+- `expediente_anon_hashlog.json`: trazabilidad documental por caso.
+- `inspection_pack_aeat_anon.pdf`: dossier listo para inspección.
+- `breach_pack_anon.json`: evento, impacto, medidas y cierre.
+
+### 5. Límites declarados
+
+- No sustituye dictamen jurídico ni función de DPO externo.
+- No reemplaza asesoramiento fiscal o contable especializado.
+- Requiere clasificación documental y políticas de acceso del despacho.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 ¿Quieres modernizar tu despacho con control total sobre los datos?

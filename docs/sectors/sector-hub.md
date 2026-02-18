@@ -8,6 +8,9 @@ Infraestructura cognitiva que despliega IA con control, cumplimiento y resultado
 
 ## Sectores Estratégicos
 
+!!! info "Estándar común por vertical"
+    Todas las páginas sectoriales siguen la misma estructura operativa para comité: **marco normativo**, **qué se compra anual (AOA)**, **KPI de seguimiento**, **evidence ejemplo anonimizadas** y **límites declarados**.
+
 <div class="premium-sector-card premium-sector-card--green" markdown="1">
 <div class="premium-sector-card__header" markdown="1">
 ### 🎓 Universidades e Investigación

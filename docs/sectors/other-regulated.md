@@ -37,10 +37,45 @@ Capacidad de conectar la inteligencia soberana con sistemas operativos (OT) y ac
 
 </div>
 
+## Estándar Operativo del Vertical
+
+### 1. Marco normativo principal
+
+- `NIS2` para entidades esenciales/importantes
+- `ISA/IEC 62443` en entornos OT/IACS
+- `ISO 27001` y `ISO 22301` para seguridad y continuidad
+- Requisitos sectoriales específicos (p. ej. mercado energético, transporte, agua)
+
+### 2. Qué compras anual (AOA)
+
+- **Base anual**: postura de seguridad operativa, logging y gobernanza.
+- **Bolsa de capacidad**: incidentes, cambios OT, vendor risk y reporting.
+- **Ad-hoc regulatorio**: crisis operativas, inspecciones y cambios regulatorios.
+
+### 3. KPI de comité
+
+| KPI | Objetivo operativo |
+| :--- | :--- |
+| Tiempo de generación de incident pack | `<24h` en incidentes críticos |
+| Cambios OT con evidencia completa | Cobertura mensual creciente |
+| Terceros críticos evaluados | Riesgo de cadena de suministro controlado |
+| Auditorías con observaciones críticas | Tendencia descendente |
+
+### 4. Evidence ejemplo (anonimizada)
+
+- `ot_change_log_anon.json`: cambios operativos y validación.
+- `incident_pack_ot_anon.json`: cronología, contención, recuperación.
+- `vendor_sbom_assessment_anon.csv`: inventario y criticidad de dependencias.
+
+### 5. Límites declarados
+
+- No sustituye centro SOC externo ni CERT sectorial.
+- No reemplaza certificaciones regulatorias obligatorias.
+- Requiere arquitectura de segmentación y operación definida por el cliente.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 ¿Tu organización gestiona activos críticos y necesita soberanía operativa real?
 </p>
 <a href="../sector-hub/" class="btn-primary btn-primary--inline">Ver Todos los Sectores →</a>
 </div>
-

@@ -37,6 +37,42 @@ Automatic validation of regulatory requirements per client, reducing the risk of
 
 </div>
 
+## Vertical Operating Standard
+
+### 1. Primary regulatory scope
+
+- `GDPR` (arts. 5, 30, 32, 33, and art. 9 when applicable)
+- `LOPDGDD` (Spanish complementary framework)
+- Tax/inspection framework (`AEAT`, `VeriFactu` where applicable)
+- Anti-money laundering requirements (`AML`) in in-scope operations
+
+### 2. What is purchased annually (AOA)
+
+- **Annual base**: local-first environment, IAM, logging, backups, monthly reporting.
+- **Capacity wallet**: validations, case evidence, scoring, and automation tasks.
+- **Regulatory ad-hoc**: inspections, breaches, urgent regulatory requests, or litigation.
+
+### 3. Committee KPIs
+
+| KPI | Operating target |
+| :--- | :--- |
+| Cases with complete evidence | Increasing monthly coverage |
+| Inspection preparation lead time | Quarterly reduction |
+| Incidents documented in `<24h` | Controlled response |
+| Reduced non-productive hours | Margin gain per team |
+
+### 4. Sample evidence (anonymized)
+
+- `case_anon_hashlog.json`: per-case document traceability.
+- `inspection_pack_aeat_anon.pdf`: inspection-ready dossier.
+- `breach_pack_anon.json`: event, impact, actions, closure.
+
+### 5. Declared limits
+
+- Does not replace legal opinion or an external DPO role.
+- Does not replace specialized tax/accounting advisory.
+- Requires document classification and access policies from the firm.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 Do you want to modernize your firm with total control over data?

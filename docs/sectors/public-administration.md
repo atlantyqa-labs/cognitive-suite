@@ -37,6 +37,42 @@ Cuadro de mandos para la gestión transversal de proyectos, eliminando silos de 
 
 </div>
 
+## Estándar Operativo del Vertical
+
+### 1. Marco normativo principal
+
+- `LCSP` para contratación pública y control de expediente
+- `ENS` (RD 311/2022)
+- `ENI` (RD 4/2010)
+- `RGPD` y marco nacional de protección de datos
+
+### 2. Qué compras anual (AOA)
+
+- **Base anual**: operación, seguridad, trazabilidad y reporting para órganos de control.
+- **Bolsa de capacidad**: expedientes, evidencias de ejecución y control documental.
+- **Ad-hoc regulatorio**: fiscalización extraordinaria, inspecciones y urgencias.
+
+### 3. KPI de comité
+
+| KPI | Objetivo operativo |
+| :--- | :--- |
+| Expedientes con trazabilidad completa | Cobertura mensual creciente |
+| Tiempo de respuesta a requerimientos de control | Reducción sostenida |
+| Evidencias ENS/ENI emitidas | Cadencia estable por periodo |
+| Incidencias de cumplimiento abiertas | Tendencia descendente |
+
+### 4. Evidence ejemplo (anonimizada)
+
+- `procurement_evidence_pack_anon.pdf`: soporte de expediente y ejecución.
+- `ens_controls_snapshot_anon.json`: estado de controles aplicables.
+- `change_log_public_ops_anon.csv`: historial de cambios y validaciones.
+
+### 5. Límites declarados
+
+- No sustituye funciones de secretaría/intervención.
+- No reemplaza dictamen jurídico-administrativo.
+- Requiere marco de gobierno documental definido por la entidad.
+
 <div class="cta-panel">
 <p class="cta-panel__text">
 ¿Buscas modernizar la administración con garantías de seguridad y cumplimiento?
